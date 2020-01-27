@@ -1,5 +1,5 @@
 export interface WithClasses {
-  classes: IClass;
+  className?: IClass;
 }
 
 export interface IClass {

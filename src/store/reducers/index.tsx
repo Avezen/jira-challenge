@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux'
-import todos from './todos'
-import visibilityFilter from './visibilityFilter'
+import {authenticatedUser} from "./authentication";
+import {navigationByMenu, selectedMenu} from "./fetchNavigation";
 
 export default combineReducers({
-    todos,
-    visibilityFilter
+    authenticatedUser,
+    selectedMenu,
+    navigationByMenu
 })
