@@ -9,15 +9,11 @@ let columns = [
         tasks: [
             {
                 id: 6,
-                name: 'Taks number six tra ta ta ta extender lorem impum '
-            },
-            {
-                id: 7,
-                name: 'Taks number 7'
+                name: 'Task number six tra ta ta ta extender lorem impum '
             },
             {
                 id: 8,
-                name: 'Taks number 8'
+                name: 'Task number 8'
             }
         ]
     },
@@ -27,69 +23,69 @@ let columns = [
         tasks: [
             {
                 id: 1,
-                name: 'Taks number 1'
+                name: 'Task number 1'
             },
             {
                 id: 2,
-                name: 'Taks number 2'
+                name: 'Task number 2'
             },
             {
                 id: 3,
-                name: 'Taks number 3'
+                name: 'Task number 3'
             },
             {
                 id: 4,
-                name: 'Taks number 4'
+                name: 'Task number 4'
             },
             {
                 id: 5,
-                name: 'Taks number 5'
+                name: 'Task number 5'
             }
         ]
     },
     {
         id: 3,
-        name: 'Column one',
+        name: 'Column three',
         tasks: [
             {
                 id: 9,
-                name: 'Taks number 9'
+                name: 'Task number 9'
             },
             {
                 id: 10,
-                name: 'Taks number 10'
+                name: 'Task number 10'
             },
             {
                 id: 11,
-                name: 'Taks number 11'
+                name: 'Task number 11'
             }
         ]
     },
     {
         id: 4,
-        name: 'Column one',
+        name: 'Column four',
         tasks: [
             {
                 id: 12,
-                name: 'Taks number 12'
+                name: 'Task number 12'
             },
             {
                 id: 13,
-                name: 'Taks number 13'
+                name: 'Task number 13'
             }
         ]
     },
     {
         id: 5,
-        name: 'Column one',
+        name: 'Column five',
         tasks: [
             {
                 id: 14,
-                name: 'Taks number 14'
+                name: 'Task number 14'
             },
             {
                 id: 15,
-                name: 'Taks number 15'
+                name: 'Task number 15'
             }
         ]
     }

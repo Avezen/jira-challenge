@@ -2,6 +2,9 @@ import React from 'react';
 import styled from "styled-components";
 import {ConnectDropTarget} from "react-dnd";
 import TaskItem from "./Task/TaskItemContainer";
+import {ModalContext} from "../../../../providers/ModalProvider";
+import {DisplayTaskModal} from "./Task/DisplayTaskModal";
+import {NewTaskModal} from "./Task/New/NewTaskModal";
 
 export interface ColumnItemProps {
     column: any;
@@ -56,11 +59,21 @@ export const ColumnItem = ({
                         />
                     </TasksListItem>
                 )}
-                <TaskItemAddNew>
-                    <label>
-                        +
-                    </label>
-                </TaskItemAddNew>
+                <ModalContext.Consumer>
+                    {({openModal, closeModal}) => (
+                        <TaskItemAddNew
+                            onClick={() => openModal(
+                                <NewTaskModal
+                                    closeModal={closeModal}
+                                />
+                            )}
+                        >
+                            <label>
+                                +
+                            </label>
+                        </TaskItemAddNew>
+                    )}
+                </ModalContext.Consumer>
             </TasksListBordered>
         </StepColumnBody>
     </StepColumnContainer>
@@ -107,4 +120,5 @@ const TaskItemAddNew = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 `;

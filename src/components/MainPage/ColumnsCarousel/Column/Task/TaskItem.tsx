@@ -28,7 +28,7 @@ export const TaskItem = ({
                     />
                 )}
             >
-                <ListItemHeader>
+                <TaskItemHeader>
                     <h5>
                         {task.name}
                     </h5>
@@ -37,8 +37,8 @@ export const TaskItem = ({
                             BUG
                         </small>
                     </ItemCategorySpan>
-                </ListItemHeader>
-                <ListItemBody>
+                </TaskItemHeader>
+                <TaskItemBody>
                     <div className="date">
                         12:48 12-08
                     </div>
@@ -55,7 +55,7 @@ export const TaskItem = ({
                             <UserCircle/>
                         </UserCircleWrapper>
                     </UsersWrapper>
-                </ListItemBody>
+                </TaskItemBody>
             </TaskItemContainer>
         )}
     </ModalContext.Consumer>
@@ -71,7 +71,7 @@ const TaskItemContainer = styled.div`
     cursor: move;
 `;
 
-const ListItemHeader = styled.div`
+const TaskItemHeader = styled.div`
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -85,7 +85,7 @@ const ItemCategorySpan = styled.span`
     margin-left: 1em;
 `;
 
-const ListItemBody = styled.div`
+const TaskItemBody = styled.div`
     display: flex;
     align-items: flex-end;
     justify-content: space-between;

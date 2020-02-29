@@ -9,11 +9,11 @@ export const ModalWrapper = ({children, closeModal}: { children: any, closeModal
         <Modal
             onClick={(e: any) => e.stopPropagation()}
         >
-            <ModalCloseButton
-                onClick={closeModal}
-            >
-                x
-            </ModalCloseButton>
+            {/*<ModalCloseButton*/}
+                {/*onClick={closeModal}*/}
+            {/*>*/}
+                {/*x*/}
+            {/*</ModalCloseButton>*/}
             {children}
         </Modal>
     </ModalContainer>
@@ -61,7 +61,7 @@ const ModalContainer = styled.div`
 `;
 
 const Modal = styled.div`
-    padding: 2em;
+    padding: 1em;
     position: relative;
     background-color: white;
     display: flex;
