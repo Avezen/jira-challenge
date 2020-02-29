@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {PageWrapper} from "../components/WRAPPERS/PageWrapper";
 import {withHelmet, WithHelmetProps} from "../components/HOC/withHelmet";
-import {RouteComponentProps, withRouter} from "react-router";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 
 class AboutPageBase extends Component<WithHelmetProps & RouteComponentProps> {
     render() {

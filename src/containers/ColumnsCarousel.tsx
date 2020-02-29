@@ -1,92 +1,120 @@
 import React, {Component, createRef} from 'react';
 import {Col, Row} from "react-bootstrap";
 import styled from "styled-components";
-import {TaskItem} from "../components/common/TaskItem";
+import {DndProvider, useDrop} from 'react-dnd';
+import Backend from 'react-dnd-html5-backend';
+import ColumnItem from "../components/common/ColumnItem";
 
-class ColumnsCarousel extends Component<{columns: any[]}> {
+
+export interface ColumnsCarouselProps {
+    columns: any[];
+    moveItem: any;
+    changeItemColumn: any;
+}
+
+export interface ColumnsCarouselState {
+    currentColumn: number
+}
+
+class ColumnsCarousel extends Component<ColumnsCarouselProps, ColumnsCarouselState> {
     state = {
-        translate: 0,
+        currentColumn: 0,
     };
 
     columnRef: any = createRef();
 
     render() {
-        const {columns} = this.props;
-        const {translate} = this.state;
+        const {columns, moveItem, changeItemColumn} = this.props;
+        const {currentColumn} = this.state;
 
-        const translateCarousel = (label: any) => (e: any) => {
-            if(this.columnRef.current){
+        const translateCarousel = (direction: any) => (e: any) => {
+            if (direction === 'left') {
+                this.setState(prevState => ({
+                    currentColumn: prevState.currentColumn - 1
+                }));
+            } else {
+                this.setState(prevState => ({
+                    currentColumn: prevState.currentColumn + 1
+                }));
+            }
+        };
 
-                let translateDirection = this.state.translate;
+        const isTranslateDisabled = (direction: any, currentColumn: number) => {
+            if (direction === 'left') {
+                return currentColumn !== 0;
+            } else {
+                return currentColumn < columns.length - 4;
+            }
+        };
 
-
-                if(label === 'left'){
-                    this.setState({
-                        translate: translateDirection + this.columnRef.current.offsetWidth
-                    });
-                }else {
-                    this.setState({
-                        translate: translateDirection - this.columnRef.current.offsetWidth
-                    });
-                }
-
-
-
+        const columnTranslateByNumber = (currentColumn: number) => {
+            let step = 0;
+            if (this.columnRef.current) {
+                step = this.columnRef.current.offsetWidth;
             }
 
+            return -currentColumn * step;
         };
+
+        const columnNumberByTranslate = (translate: number) => {
+            let step = 0;
+            if (this.columnRef.current) {
+                const step = this.columnRef.current.offsetWidth;
+            }
+
+            return Math.round(translate / step - 1)
+        };
+
+
 
         return (
             <React.Fragment>
-                <ArrowContainer
-                    onClick={translateCarousel('left')}
-                >
-                    left
-                </ArrowContainer>
-                <ColumnsWrapper>
-                    <NoWrapRow
-                        translate={translate}
+                {isTranslateDisabled('left', currentColumn) ? (
+                    <ArrowContainer
+                        onClick={translateCarousel('left')}
                     >
-                        {columns.map((column: any, key: any) =>
-                            <Col
-                                lg={3}
-                                key={key}
-                                ref={this.columnRef}
-                            >
-                                <StepColumn>
-                                    <StepColumnHeader>
-                                        <h4>
-                                            {column.name}
-                                        </h4>
-                                    </StepColumnHeader>
-                                    <StepColumnBody>
-                                        <TasksListBordered>
-                                            {column.tasks.map((task: any, key: any) =>
-                                                <TasksListItem
-                                                    key={key}
-                                                >
-                                                    <TaskItem
-                                                        task={task}
-                                                    />
-                                                </TasksListItem>
-                                            )}
-                                            <TaskItemAddNew>
-                                                <label>
-                                                    +
-                                                </label>
-                                            </TaskItemAddNew>
-                                        </TasksListBordered>
-                                    </StepColumnBody>
-                                </StepColumn>
-                            </Col>
-                        )}
-                    </NoWrapRow>
-                </ColumnsWrapper>
-                <ArrowContainer
-                    onClick={translateCarousel('right')}
-                >
-                    right
-                </ArrowContainer>
+                        left
+                    </ArrowContainer>
+                ) : (
+                    <ArrowContainerDisabled/>
+                )}
+
+                <DndProvider backend={Backend}>
+                    <ColumnsWrapper>
+                        <NoWrapRow
+                            translate={columnTranslateByNumber(currentColumn)}
+                        >
+                            {columns.map((column: any, key: any) =>
+                                <Col
+                                    lg={3}
+                                    key={key}
+                                    ref={this.columnRef}
+                                >
+                                    <StepColumn
+                                        animate={(currentColumn - 1 === key) || (currentColumn + 4 === key)}
+                                    >
+                                        <ColumnItem
+                                            column={column}
+                                            index={key}
+                                            moveItem={moveItem}
+                                            changeItemColumn={changeItemColumn}
+                                        />
+                                    </StepColumn>
+                                </Col>
+                            )}
+                        </NoWrapRow>
+                    </ColumnsWrapper>
+                </DndProvider>
+                {isTranslateDisabled('right', currentColumn) ? (
+                    <ArrowContainer
+                        onClick={translateCarousel('right')}
+                    >
+                        right
+                    </ArrowContainer>
+                ) : (
+                    <ArrowContainerDisabled/>
+                )}
+
             </React.Fragment>
         );
     }
@@ -95,17 +123,21 @@ class ColumnsCarousel extends Component<{columns: any[]}> {
 export default ColumnsCarousel;
 
 
-
 const ArrowContainer = styled.div`
     width: 50px;
 `;
 
+const ArrowContainerDisabled = styled.div`
+    width: 50px;
+`;
 
 const ColumnsWrapper = styled.div`
+    width: 100%;
     overflow: hidden;
 `;
 
-const NoWrapRow = styled(Row)<{translate: number}>`
+const NoWrapRow = styled(Row)<{ translate: number }>`
+    padding: 1em;
     flex-wrap: nowrap !important; 
     -webkit-transform: translateX(${p => p.translate}px);
     -moz-transform: translateX(${p => p.translate}px);
@@ -120,42 +152,10 @@ const NoWrapRow = styled(Row)<{translate: number}>`
     transition: all 500ms ;
 `;
 
-const StepColumn = styled.div`
-`;
-
-const StepColumnHeader = styled.div`
-    padding-left: 1em;
-`;
-
-const StepColumnBody = styled.div`
-    border-radius: 5px;
-    background-color: darkgray;
-`;
-
-const TasksListBordered = styled.ul`
-    border: solid 1px black;
-    border-radius: 5px;
-    padding: 1em;
-    list-style: none;
-`;
-
-const TasksListItem = styled.li`
-    width: 100%;
-    background-color: white;
-    border-radius: 5px;
-    padding: 1em;
-    margin-bottom: 1em;
+const StepColumn = styled.div<{ animate: boolean }>`
+    transition: opacity 400ms;
+    opacity: ${p => p.animate ? 0 : 1};
 `;
 
 
 
-const TaskItemAddNew = styled.div`
-    width: 100%;
-    background-color: white;
-    border-radius: 10px;
-    padding: 1em;
-    margin-bottom: 1em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`;

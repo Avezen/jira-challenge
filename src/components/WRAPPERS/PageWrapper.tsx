@@ -7,10 +7,10 @@ import {authenticatedUser} from "../../store/reducers/authentication";
 import {navigationItems} from "../../constans/navigation";
 import {Navigation} from "../Navigation/Navigation";
 import {connect} from "react-redux";
-import {RouteComponentProps, withRouter} from "react-router";
 import {withSecurity} from "../HOC/withSecurity";
 import {LoginFormBaseProps} from "../LoginForm/LoginForm";
 import {fetchNavigationIfNeeded, selectMenuItem} from "../../store/actions/fetchNavigation";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 
 export interface PageWrapperProps {
     children?: React.ReactNode;

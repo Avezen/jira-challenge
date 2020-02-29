@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {connect} from "react-redux";
 import {fetchAuthenticatedUser} from "../../store/actions/authentication";
-import {SyntheticEvent} from "react";
 import {LoginFormBaseProps} from "../LoginForm/LoginForm";
 import {login, logout} from "../../services/FetchUser";
 
