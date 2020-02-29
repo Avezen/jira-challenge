@@ -13,10 +13,6 @@ export interface LoginFormBaseProps {
 }
 
 class LoginFormBase extends Component<LoginFormBaseProps> {
-    stopPropagation = (e: any) => {
-        e.stopPropagation();
-    };
-
     closeForm = () => {
         const {setFormOpen} = this.props;
         setFormOpen(false);
@@ -35,7 +31,7 @@ class LoginFormBase extends Component<LoginFormBaseProps> {
                 onClick={this.closeForm}
             >
                 <LoginFormContainer
-                    onClick={this.stopPropagation}
+                    onClick={(e: any) => e.stopPropagation()}
                 >
                     <LoginFormCloseButton
                         onClick={this.closeForm}

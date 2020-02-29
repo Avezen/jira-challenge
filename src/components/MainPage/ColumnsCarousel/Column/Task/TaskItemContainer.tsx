@@ -1,5 +1,4 @@
 import React, {useImperativeHandle, useRef} from 'react';
-import styled from "styled-components";
 import {
     ConnectDragSource,
     ConnectDropTarget,
@@ -9,6 +8,7 @@ import {
     DropTarget, DropTargetConnector, DropTargetMonitor,
     XYCoord
 } from "react-dnd";
+import {TaskItem} from "./TaskItem";
 
 
 export interface TaskItemProps {
@@ -29,7 +29,7 @@ interface TaskItemInstance {
     getNode(): HTMLDivElement | null
 }
 
-const TaskItem = React.forwardRef<HTMLDivElement, TaskItemProps>(
+const TaskItemContainer = React.forwardRef<HTMLDivElement, TaskItemProps>(
     ({task, isDragging, connectDragSource, connectDropTarget}, ref) => {
         const elementRef = useRef(null);
         connectDragSource(elementRef);
@@ -41,34 +41,11 @@ const TaskItem = React.forwardRef<HTMLDivElement, TaskItemProps>(
         }));
 
         return (
-            <TaskItemContainer
-                ref={elementRef} style={{opacity}}
-            >
-                <ListItemHeader>
-                    <h5>
-                        {task.name}
-                    </h5>
-                    <ItemHeaderLabel>
-                        BUG
-                    </ItemHeaderLabel>
-                </ListItemHeader>
-                <ListItemBody>
-                    <div className="date">
-                        12-08
-                    </div>
-                    <div className="users">
-                        <div className="avatar--circle">
-
-                        </div>
-                        <label>
-                            ->
-                        </label>
-                        <div className="avatar--circle">
-
-                        </div>
-                    </div>
-                </ListItemBody>
-            </TaskItemContainer>
+            <TaskItem
+                elementRef={elementRef}
+                task={task}
+                isDragging={isDragging}
+            />
         )
     },
 );
@@ -169,32 +146,6 @@ export default DropTarget(
             connectDragSource: connect.dragSource(),
             isDragging: monitor.isDragging(),
         }),
-    )(TaskItem),
+    )(TaskItemContainer),
 )
 
-
-const TaskItemContainer = styled.div`
-    width: 100%;
-    background-color: white;
-    border-radius: 5px;
-    padding: 1em;
-    margin-bottom: 1em;
-`;
-
-const ListItemHeader = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-`;
-
-const ItemHeaderLabel = styled.label`
-    background-color: red;
-    border-radius: 10px;
-    padding: 5px;
-`;
-
-const ListItemBody = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-`;
