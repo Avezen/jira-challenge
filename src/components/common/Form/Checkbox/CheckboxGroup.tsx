@@ -1,9 +1,9 @@
 import React from 'react';
 import {ErrorMessage} from "formik";
-import {RadioInput} from "./RadioInput";
+import {CheckboxInput} from "./CheckboxInput";
 import styled from "styled-components";
 
-export const RadioGroup = ({radios, disabled, name, errors, placeholder}: {radios: any, disabled?: any, name: any, errors?: any, placeholder: any}) => (
+export const CheckboxGroup = ({checkboxes, disabled, name, errors, placeholder}: {checkboxes: any, disabled?: any, name: any, errors?: any, placeholder: any}) => (
     <RadioGroupContainer>
         <StyledLabel
             htmlFor={name}
@@ -13,12 +13,12 @@ export const RadioGroup = ({radios, disabled, name, errors, placeholder}: {radio
         <RadiosContainer
             id={name}
         >
-            {radios.map((radio: any, key: any) => (
-                <RadioInput
+            {checkboxes.map((checkbox: any, key: any) => (
+                <CheckboxInput
                     key={key}
                     name={name}
                     disabled={disabled}
-                    radio={radio}
+                    value={checkbox}
                     errors={errors}
                 />
             ))}

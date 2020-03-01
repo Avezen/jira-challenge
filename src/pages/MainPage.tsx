@@ -5,30 +5,33 @@ import {Col, Container, Row} from "react-bootstrap";
 import styled from "styled-components";
 import bg1 from "../assets/backgrounds/bg1.png"
 import ColumnsCarouselContainer from "../components/MainPage/ColumnsCarousel/ColumnsCarouselContainer";
+import ModalProvider from "../providers/ModalProvider";
 
 
 export class MainPageBase extends Component<WithHelmetProps & RouteComponentProps> {
 
     render() {
         return (
-            <StyledContainer
-                fluid
-            >
-                        <BackgroundImage
-                            image={bg1}
-                        />
-                        <ContentContainer>
-                            <ContentHeaderContainer>
-                                <h3>
-                                    Project name
-                                </h3>
-                            </ContentHeaderContainer>
-                            <ContentBodyContainer>
-                                <ColumnsCarouselContainer/>
-                            </ContentBodyContainer>
-                        </ContentContainer>
-                {/*<FormattedMessage id="navigation.dashboard" />*/}
-            </StyledContainer>
+            <ModalProvider>
+                <StyledContainer
+                    fluid
+                >
+                    <BackgroundImage
+                        image={bg1}
+                    />
+                    <ContentContainer>
+                        <ContentHeaderContainer>
+                            <h3>
+                                Project name
+                            </h3>
+                        </ContentHeaderContainer>
+                        <ContentBodyContainer>
+                            <ColumnsCarouselContainer/>
+                        </ContentBodyContainer>
+                    </ContentContainer>
+                    {/*<FormattedMessage id="navigation.dashboard" />*/}
+                </StyledContainer>
+            </ModalProvider>
         );
     }
 }

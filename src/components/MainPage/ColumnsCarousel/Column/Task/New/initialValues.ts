@@ -3,6 +3,7 @@ interface MyFormValues {
     description: string;
     category: string;
     taskSteps: string[];
+    taskDevelopers: string[];
 }
 
 export const newTaskFormInitialValues : MyFormValues= {
@@ -10,4 +11,5 @@ export const newTaskFormInitialValues : MyFormValues= {
     description: '',
     category: '',
     taskSteps: [''],
+    taskDevelopers: [],
 };

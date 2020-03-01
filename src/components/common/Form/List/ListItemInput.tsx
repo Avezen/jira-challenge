@@ -7,7 +7,7 @@ export const ListItemInput = ({name, index, removeItem, placeholder}: {name: any
         <Field
             name={`${name}[${index}]`}
         >
-            {({field, form, meta}: { field: any, form: any, meta: any }) => (
+            {({field}: { field: any }) => (
                 <StyledListItemInput>
                     <StyledInput
                         {...field}

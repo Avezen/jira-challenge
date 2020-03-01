@@ -7,6 +7,7 @@ import {UserCircle} from "../../../../common/UserCircle";
 export const DisplayTaskModal = ({closeModal, task}: { closeModal: any, task: any }) => (
     <ModalWrapper
         closeModal={closeModal}
+        width={400}
     >
         <DisplayTaskModalContainer>
             <TaskHeader>
@@ -68,7 +69,7 @@ export const DisplayTaskModal = ({closeModal, task}: { closeModal: any, task: an
 
 
 const DisplayTaskModalContainer = styled.div`
-    width: 400px;
+    width: 100%;
 `;
 
 const TaskHeader = styled.div`

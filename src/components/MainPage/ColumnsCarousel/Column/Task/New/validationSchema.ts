@@ -21,4 +21,9 @@ export const newTaskFormValidationSchema = Yup.object({
             .max(255)
     )
     ,
+    taskDevelopers: Yup.array().of(
+        Yup.string()
+            .required('Required')
+    )
+    ,
 });

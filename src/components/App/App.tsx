@@ -30,8 +30,7 @@ class App extends React.Component {
             <Provider store={store}>
                 <IntlProvider locale="en" messages={flattenMessages(messages['en'])}>
                     <Router>
-                        <PageWrapper>
-                            <ModalProvider>
+                            <PageWrapper>
                                 <Route
                                     render={({location}) => {
                                         const {pathname, key} = location;
@@ -61,8 +60,7 @@ class App extends React.Component {
                                         )
                                     }}
                                 />
-                            </ModalProvider>
-                        </PageWrapper>
+                            </PageWrapper>
                     </Router>
                 </IntlProvider>
             </Provider>

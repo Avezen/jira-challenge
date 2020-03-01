@@ -2,12 +2,13 @@ import React from 'react';
 import styled, {keyframes} from "styled-components";
 
 
-export const ModalWrapper = ({children, closeModal}: { children: any, closeModal: any }) => (
+export const ModalWrapper = ({children, closeModal, width}: { children: any, closeModal: any, width?: any }) => (
     <ModalContainer
         onClick={closeModal}
     >
         <Modal
             onClick={(e: any) => e.stopPropagation()}
+            width={width}
         >
             {/*<ModalCloseButton*/}
                 {/*onClick={closeModal}*/}
@@ -47,27 +48,32 @@ const modalEnter = keyframes`
 `;
 
 const ModalContainer = styled.div`
-    height: 100%;
+    overflow-y: scroll;
+
+    height: 100vh;
     width: 100%;
     position: fixed;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    //display: flex;
+    //align-items: center;
+    //justify-content: center;
     z-index: 1000;
+    top: 2em;
 
     animation: ${modalMaskOpen} 200ms linear;
-
 `;
 
-const Modal = styled.div`
-    padding: 1em;
+const Modal = styled.div<{width?: any}>`
+    margin: 6em auto;
+    width: ${p => p.width ? p.width : 400}px;
+
+    padding: 2em;
     position: relative;
     background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 5px;
+    border-radius: 3px;
     
     animation: ${modalEnter} 200ms linear;
 `;
