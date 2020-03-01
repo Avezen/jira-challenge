@@ -31,11 +31,11 @@ const modalMaskOpen = keyframes`
 
 const modalEnter = keyframes`
     from {
-        -webkit-transform: translateY(-50px);
-        -moz-transform: translateY(-50px);
-        -ms-transform: translateY(-50px);
-        -o-transform: translateY(-50px);
-        transform: translateY(-50px);
+        -webkit-transform: translateY(-10px);
+        -moz-transform: translateY(-10px);
+        -ms-transform: translateY(-10px);
+        -o-transform: translateY(-10px);
+        transform: translateY(-10px);
     }
     to {
         -webkit-transform: translateY(0px);
@@ -47,7 +47,7 @@ const modalEnter = keyframes`
 `;
 
 const ModalContainer = styled.div`
-    height: 100vh;
+    height: 100%;
     width: 100%;
     position: fixed;
     background-color: rgba(0, 0, 0, 0.5);
@@ -56,7 +56,7 @@ const ModalContainer = styled.div`
     justify-content: center;
     z-index: 1000;
 
-    animation: ${modalMaskOpen} 300ms linear;
+    animation: ${modalMaskOpen} 200ms linear;
 
 `;
 
@@ -69,7 +69,7 @@ const Modal = styled.div`
     justify-content: center;
     border-radius: 5px;
     
-    animation: ${modalEnter} 300ms linear;
+    animation: ${modalEnter} 200ms linear;
 `;
 
 const ModalCloseButton = styled.label`

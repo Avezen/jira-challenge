@@ -11,4 +11,14 @@ export const newTaskFormValidationSchema = Yup.object({
         .min(5)
         .max(255)
     ,
+    category: Yup.string()
+        .required('Required')
+    ,
+    taskSteps: Yup.array().of(
+        Yup.string()
+            .required('Required')
+            .min(4)
+            .max(255)
+    )
+    ,
 });

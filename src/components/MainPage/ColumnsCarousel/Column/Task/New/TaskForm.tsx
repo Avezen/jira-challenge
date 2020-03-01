@@ -5,32 +5,42 @@ import {
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import styled from "styled-components";
+import {TextInput} from "../../../../../common/Form/TextInput";
+import {RadioGroup} from "../../../../../common/Form/Radio/RadioGroup";
+import {ListGroup} from "../../../../../common/Form/List/ListGroup";
 
 
 
-export const TaskForm = () => (
+export const TaskForm = ({values, setFieldValue} : {values: any, setFieldValue: any}) => (
     <Row>
         <Col lg={12}>
-            <Field
-                name="name"
-                render={({field, form, meta}: { field: any, form: any, meta: any }) => (
-                    <StyledField>
-                        <StyledInput type="text" {...field} placeholder="Name"/>
-                        {meta.touched && meta.error && meta.error}
-                    </StyledField>
-                )}
+            <TextInput
+                name={'name'}
+                placeholder={'Name'}
             />
         </Col>
 
         <Col lg={12}>
-            <Field
-                name="description"
-                render={({field, form, meta}: { field: any, form: any, meta: any }) => (
-                    <StyledField>
-                        <StyledInput type="text" {...field} placeholder="Description"/>
-                        {meta.touched && meta.error && meta.error}
-                    </StyledField>
-                )}
+            <TextInput
+                name={'description'}
+                placeholder={'Description'}
+            />
+        </Col>
+
+        <Col lg={12}>
+            <RadioGroup
+                name={'category'}
+                placeholder={'Category'}
+                radios={['yes', 'no']}
+            />
+        </Col>
+
+        <Col lg={12}>
+            <ListGroup
+                name={'taskSteps'}
+                placeholder={'Task Steps'}
+                taskSteps={values.taskSteps}
+                setFieldValue={setFieldValue}
             />
         </Col>
 
