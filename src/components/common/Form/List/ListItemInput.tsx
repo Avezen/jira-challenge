@@ -1,6 +1,7 @@
 import React from "react";
-import {ErrorMessage, Field} from "formik";
+import {Field} from "formik";
 import styled from "styled-components";
+import {StyledErrorMessage} from "../styled";
 
 export const ListItemInput = ({name, index, removeItem, placeholder}: {name: any, index: any, removeItem: any, placeholder?: any}) => (
     <ListItemInputContainer>
@@ -12,13 +13,13 @@ export const ListItemInput = ({name, index, removeItem, placeholder}: {name: any
                     <StyledInput
                         {...field}
                         type={'text'}
+                        placeholder={placeholder}
                     />
-                    <button
+                    <RemoveButton
                         type={'button'}
                         onClick={() => removeItem(index)}
                     >
-                        remove
-                    </button>
+                    </RemoveButton>
                 </StyledListItemInput>
             )}
         </Field>
@@ -41,6 +42,29 @@ const StyledInput = styled.input`
     width: 100%;
 `;
 
-const StyledErrorMessage = styled(ErrorMessage)`
+const RemoveButton = styled.button`
+    height: 35px;
+    width: 35px;
+    position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    background-color: white;
+    color: white;
     
+    &:after {
+        position: absolute;
+        top: 5px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        content: "\\274c"; /* use the hex value here... */
+        font-size: 16px; 
+        color: black;
+        text-align: center;
+        
+        &:hover {
+            color: grey;
+        }
+    }
 `;

@@ -1,5 +1,5 @@
 import React from 'react';
-import {ErrorMessage, Field} from "formik";
+import {Field} from "formik";
 import styled from "styled-components";
 
 export const RadioInput = ({name, disabled, radio, errors}: { name: any, disabled?: any, radio: any, errors?: any }) => (
@@ -38,6 +38,10 @@ const RadioContainer = styled.div`
     
 `;
 
+const StyledInput = styled.input`
+    width: 100%;
+`;
+
 const StyledLabel = styled.label`
     display: block;
     position: relative;
@@ -48,6 +52,7 @@ const StyledLabel = styled.label`
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    
     
     & input{
         position: absolute;
@@ -65,38 +70,34 @@ const StyledLabel = styled.label`
         box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     }
     
-    & input:checked ~ span:after {
-        display: block;
+    & input:checked ~ span small {
+        font-weight: 700;
     }
     
-    & span:after {
-        right: 16px;
-        top: -2px;
-        width: 5px;
-        height: 10px;
-        border: solid black;
-        border-width: 0 3px 3px 0;
-        -webkit-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        transform: rotate(45deg);
-    }
+    //& input:checked ~ span:after {
+    //    display: block;
+    //}
+    //
+    //& span:after {
+    //    right: 16px;
+    //    top: -2px;
+    //    width: 5px;
+    //    height: 10px;
+    //    border: solid black;
+    //    border-width: 0 3px 3px 0;
+    //    -webkit-transform: rotate(45deg);
+    //    -ms-transform: rotate(45deg);
+    //    transform: rotate(45deg);
+    //}
 `;
 
 const StyledSpan = styled.span<{ color?: any }>`
     border-radius: 5px;
     padding: 0 6px 2px 6px;
     background-color: ${p => p.color ? p.color : 'grey'};
-    
-    &:after {
-        content: "";
-        position: absolute;
-        display: none;
-    }
+
 `;
 
-const StyledInput = styled.input`
-    width: 100%;
-`;
 
 //
 //

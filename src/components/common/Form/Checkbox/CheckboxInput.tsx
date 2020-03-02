@@ -1,5 +1,5 @@
 import React from 'react';
-import {ErrorMessage, Field} from "formik";
+import {Field} from "formik";
 import styled from "styled-components";
 
 export const CheckboxInput = ({name, disabled, value, errors}: { name: any, disabled?: any, value: any, errors?: any }) => (
@@ -42,9 +42,11 @@ export const CheckboxInput = ({name, disabled, value, errors}: { name: any, disa
 );
 
 const RadioContainer = styled.div`
-    height: 40px;
 `;
 
+const StyledInput = styled.input`
+    width: 100%;
+`;
 
 const StyledLabel = styled.label`
     display: block;
@@ -72,35 +74,36 @@ const StyledLabel = styled.label`
     }
 
     & input:checked ~ span {
-        -webkit-transform: scale(1.1);
-        -moz-transform: scale(1.1);
-        -ms-transform: scale(1.1);
-        -o-transform: scale(1.1);
-        transform: scale(1.1);
+        border: solid 2px black;
+        -webkit-transform: scale(1.2);
+        -moz-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        -o-transform: scale(1.2);
+        transform: scale(1.2);
     }
-
-    & input:checked ~ span:after {
-        display: block;
-    }
-
-    & span:after {
-        left: 31px;
-        top: 0;
-        width: 5px;
-        height: 10px;
-        border: solid black;
-        border-width: 0 3px 3px 0;
-        -webkit-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        transform: rotate(45deg);
-    }
+    //
+    //& input:checked ~ span:after {
+    //    display: block;
+    //}
+    //
+    //& span:after {
+    //    left: 31px;
+    //    top: 0;
+    //    width: 5px;
+    //    height: 10px;
+    //    border: solid black;
+    //    border-width: 0 3px 3px 0;
+    //    -webkit-transform: rotate(45deg);
+    //    -ms-transform: rotate(45deg);
+    //    transform: rotate(45deg);
+    //}
 `;
 
 const StyledSpan = styled.span<{avatar?: any}>`
     top: 0;
     left: 0;
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
     display: block;
     border: solid 1px black;
     border-radius: 50%;
@@ -115,7 +118,4 @@ const StyledSpan = styled.span<{avatar?: any}>`
     }
 `;
 
-const StyledInput = styled.input`
-    width: 100%;
-`;
 

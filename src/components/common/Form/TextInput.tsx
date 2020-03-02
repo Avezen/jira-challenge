@@ -1,9 +1,10 @@
 import React from "react";
 import {ErrorMessage, Field} from "formik";
 import styled from "styled-components";
+import {FormFieldContainer, StyledErrorMessage, StyledLabel} from "./styled";
 
 export const TextInput = ({name, placeholder, disabled, errors}: {name: any, placeholder: any, disabled?: any, errors?: any}) => (
-    <TextInputContainer>
+    <FormFieldContainer>
         <StyledLabel
             htmlFor={name}
         >
@@ -27,21 +28,11 @@ export const TextInput = ({name, placeholder, disabled, errors}: {name: any, pla
             name={name}
             component={'div'}
         />
-    </TextInputContainer>
+    </FormFieldContainer>
 );
 
-const TextInputContainer = styled.div`
-    margin-bottom: 1em;
-`;
-
-const StyledLabel = styled.label`
-    
-`;
 
 const StyledInput = styled.input`
     width: 100%;
 `;
 
-const StyledErrorMessage = styled(ErrorMessage)`
-    
-`;

@@ -1,7 +1,8 @@
 import React from "react";
 import {ListItemInput} from "./ListItemInput";
 import styled from "styled-components";
-import {ErrorMessage} from "formik";
+import {FormFieldContainer, StyledLabel} from "../styled";
+import {Button} from "../../Buttons";
 
 
 export const ListGroup = ({name, placeholder, taskSteps, setFieldValue}: { name: any, placeholder: any, taskSteps: any, setFieldValue: any }) => {
@@ -15,18 +16,21 @@ export const ListGroup = ({name, placeholder, taskSteps, setFieldValue}: { name:
     };
 
     return (
-        <ListGroupContainer>
-            <StyledLabel
-                htmlFor={name}
-            >
-                {placeholder}
-            </StyledLabel>
-            <button
-                type={'button'}
-                onClick={addNewItem}
-            >
-                Add new
-            </button>
+        <FormFieldContainer>
+            <ListHeader>
+                <StyledLabel
+                    htmlFor={name}
+                >
+                    {placeholder}
+                </StyledLabel>
+                <Button
+                    type={'button'}
+                    onClick={addNewItem}
+                    secondary
+                >
+                    Add new
+                </Button>
+            </ListHeader>
             <ListContainer
                 id={name}
             >
@@ -35,25 +39,22 @@ export const ListGroup = ({name, placeholder, taskSteps, setFieldValue}: { name:
                         key={key}
                         name={name}
                         index={key}
+                        placeholder={placeholder}
                         removeItem={removeItem}
                     />
                 ))}
             </ListContainer>
-        </ListGroupContainer>
+        </FormFieldContainer>
     );
 };
 
-const ListGroupContainer = styled.div`
-    margin-bottom: 1em;
+const ListHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: .5em;
 `;
 
-const StyledLabel = styled.label`
-    
-`;
 
 const ListContainer = styled.div`
-`;
-
-const StyledErrorMessage = styled(ErrorMessage)`
-    
 `;

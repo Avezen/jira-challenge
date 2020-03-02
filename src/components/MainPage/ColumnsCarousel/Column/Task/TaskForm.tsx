@@ -5,13 +5,14 @@ import {
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import styled from "styled-components";
-import {TextInput} from "../../../../../common/Form/TextInput";
-import {RadioGroup} from "../../../../../common/Form/Radio/RadioGroup";
-import {ListGroup} from "../../../../../common/Form/List/ListGroup";
-import {TextareaInput} from "../../../../../common/Form/TextareaInput";
-import {CheckboxGroup} from "../../../../../common/Form/Checkbox/CheckboxGroup";
-import avatar1 from "../../../../../../assets/avatars/avatar1.jpg";
-import avatar2 from "../../../../../../assets/avatars/avatar2.jpg";
+import {TextInput} from "../../../../common/Form/TextInput";
+import {RadioGroup} from "../../../../common/Form/Radio/RadioGroup";
+import {ListGroup} from "../../../../common/Form/List/ListGroup";
+import {TextareaInput} from "../../../../common/Form/TextareaInput";
+import {CheckboxGroup} from "../../../../common/Form/Checkbox/CheckboxGroup";
+import avatar1 from "../../../../../assets/avatars/avatar1.jpg";
+import avatar2 from "../../../../../assets/avatars/avatar2.jpg";
+import {Button} from "../../../../common/Buttons";
 
 const categories = [
     {
@@ -44,7 +45,7 @@ const developers = [
     }
 ];
 
-export const TaskForm = ({values, setFieldValue} : {values: any, setFieldValue: any}) => (
+export const TaskForm = ({values, setFieldValue}: { values: any, setFieldValue: any }) => (
     <Row>
         <Col lg={12}>
             <TextInput
@@ -86,17 +87,17 @@ export const TaskForm = ({values, setFieldValue} : {values: any, setFieldValue: 
         </Col>
 
         <Col lg={12}>
-            <button type="submit">
-                Submit
-            </button>
+            <SubmitButtonContainer>
+                <Button
+                    type={'submit'}
+                >
+                    Submit
+                </Button>
+            </SubmitButtonContainer>
         </Col>
     </Row>
 );
 
-const StyledField = styled.div`
-    margin-bottom: 1em;
-`;
-
-const StyledInput = styled.input`
-    width: 100%;
+const SubmitButtonContainer = styled.div`
+    text-align: right;
 `;

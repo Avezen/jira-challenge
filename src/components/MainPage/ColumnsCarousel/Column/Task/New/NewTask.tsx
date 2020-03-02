@@ -5,14 +5,14 @@ import {
 } from 'formik';
 import {newTaskFormInitialValues} from "./initialValues";
 import {newTaskFormValidationSchema} from "./validationSchema";
-import {TaskForm} from "./TaskForm";
+import {TaskForm} from "../TaskForm";
 
 
 export const NewTask = () => (
     <div>
-        <h4>
+        <h3>
             Create new task
-        </h4>
+        </h3>
         <Formik
             initialValues={newTaskFormInitialValues}
             validationSchema={newTaskFormValidationSchema}

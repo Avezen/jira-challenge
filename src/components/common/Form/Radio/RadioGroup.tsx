@@ -1,10 +1,10 @@
 import React from 'react';
-import {ErrorMessage} from "formik";
 import {RadioInput} from "./RadioInput";
 import styled from "styled-components";
+import {FormFieldContainer, StyledErrorMessage, StyledLabel} from "../styled";
 
 export const RadioGroup = ({radios, disabled, name, errors, placeholder}: {radios: any, disabled?: any, name: any, errors?: any, placeholder: any}) => (
-    <RadioGroupContainer>
+    <FormFieldContainer>
         <StyledLabel
             htmlFor={name}
         >
@@ -27,25 +27,10 @@ export const RadioGroup = ({radios, disabled, name, errors, placeholder}: {radio
             name={name}
             component={'div'}
         />
-    </RadioGroupContainer>
+    </FormFieldContainer>
 );
 
-const RadioGroupContainer = styled.div`
-    margin-bottom: 1em;
-`;
-
-const StyledLabel = styled.label`
-    
-`;
 
 const RadiosContainer = styled.div`
     display: flex;
-`;
-
-const StyledInput = styled.input`
-    width: 100%;
-`;
-
-const StyledErrorMessage = styled(ErrorMessage)`
-    
 `;
