@@ -3,6 +3,8 @@ import styled from "styled-components";
 import {UserCircle} from "../../../../common/UserCircle";
 import {DisplayTaskModal} from "./DisplayTaskModal";
 import {ModalContext} from '../../../../../providers/ModalProvider';
+import avatar1 from "../../../../../assets/avatars/avatar1.jpg";
+import avatar2 from "../../../../../assets/avatars/avatar2.jpg";
 
 
 export interface TaskItemProps {
@@ -10,6 +12,27 @@ export interface TaskItemProps {
     task: any;
     isDragging: boolean
 }
+
+
+const developers = {
+    createdBy: {
+        id: 1,
+        name: 'user1',
+        avatar: avatar1
+    },
+    createdFor: [
+        {
+            id: 1,
+            name: 'user1',
+            avatar: avatar1
+        },
+        {
+            id: 2,
+            name: 'user2',
+            avatar: avatar2
+        }
+    ]
+};
 
 export const TaskItem = ({
                              task,
@@ -25,6 +48,7 @@ export const TaskItem = ({
                     <DisplayTaskModal
                         closeModal={closeModal}
                         task={task}
+                        developers={developers}
                     />
                 )}
             >
@@ -43,17 +67,25 @@ export const TaskItem = ({
                         12:48 12-08
                     </div>
                     <UsersWrapper>
-                        <UserCircleWrapper left>
-                            <UserCircle/>
-                        </UserCircleWrapper>
-                        <RightArrow/>
-                        <RightArrow/>
-                        <RightArrow/>
                         <UserCircleWrapper
-                            right
+                            left
                         >
-                            <UserCircle/>
+                            <UserCircle
+                                user={developers.createdBy}
+                            />
                         </UserCircleWrapper>
+                        <RightArrow/>
+                        <RightArrow/>
+                        <RightArrow/>
+                        {developers.createdFor.map((item: any, key: any) => (
+                            <UserCircleWrapper
+                                right
+                            >
+                                <UserCircle
+                                    user={item}
+                                />
+                            </UserCircleWrapper>
+                        ))}
                     </UsersWrapper>
                 </TaskItemBody>
             </TaskItemContainer>
@@ -67,7 +99,6 @@ const TaskItemContainer = styled.div`
     background-color: white;
     border-radius: 5px;
     padding: 1em;
-    margin-bottom: 1em;
     cursor: move;
 `;
 
@@ -108,5 +139,9 @@ const RightArrow = styled.i`
 `;
 
 const UserCircleWrapper = styled.div<{ left?: boolean, right?: boolean }>`
-    margin: ${p => p.left ? '0 4px 0 0' : p.right ? '0 0 0 7px' : ''}
+    margin: ${p => p.left ? '0 4px 0 0' : p.right ? '0 0 0 7px' : ''};
+    
+    &:nth-child(n+6) {
+          margin: ${p => p.right ? '0 0 0 -30px' : ''};
+    }
 `;

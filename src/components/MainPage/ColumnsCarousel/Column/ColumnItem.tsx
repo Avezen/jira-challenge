@@ -38,12 +38,11 @@ export const ColumnItem = ({
         </StepColumnHeader>
         <StepColumnBody>
             <TasksListBordered>
-                <TasksListItem
-                >
-                    {isActive && (
+                {isActive && (
+                    <TasksListItem>
                         <GhostAddTaskItem/>
-                    )}
-                </TasksListItem>
+                    </TasksListItem>
+                )}
                 {column.tasks.map((task: any, key: any) =>
                     <TasksListItem
                         key={task.id}
@@ -97,19 +96,18 @@ const StepColumnBody = styled.div`
 
 const TasksListBordered = styled.ul`
     border-radius: 5px;
-    padding: 1em;
+    padding: .5em;
     list-style: none;
 `;
 
 const TasksListItem = styled.li`
-
+    margin-bottom: .5em;
 `;
 
 const GhostAddTaskItem = styled.div`
     width: 100%;
     height: 100px;
     border: solid 1px lightgrey;
-    margin-bottom: 1em;
 `;
 
 const TaskItemAddNew = styled.div`

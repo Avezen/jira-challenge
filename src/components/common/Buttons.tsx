@@ -14,14 +14,14 @@ export const Button = ({type, children, onClick, secondary}: { type: any, childr
 
 
 const StyledButton = styled.button<{secondary?: boolean}>`
-    border: ${p => p.secondary ? 'solid 1px #fb6ee0' : 'none'};
+    border: ${p => p.secondary ? 'solid 1px #689cee' : 'none'};
     border-radius: 4px;
-    color: ${p => p.secondary ? '#fb6ee0' : '#FFF'};
-    background-color: ${p => p.secondary ? '#FFF' : '#fb6ee0'};
+    color: ${p => p.secondary ? '#689cee' : '#FFF'};
+    background-color: ${p => p.secondary ? '#FFF' : '#689cee'};
     padding: 5px 1.5em 5px 1.5em;
     
     &:hover {
-      background-color: #c95ab2;
+      background-color: #6381ce;
       color: #FFF;
     }
 `;

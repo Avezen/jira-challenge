@@ -73,6 +73,7 @@ export const TaskForm = ({values, setFieldValue}: { values: any, setFieldValue: 
             <ListGroup
                 name={'taskSteps'}
                 placeholder={'Task Steps'}
+                listItemPlaceholder={'Task step description'}
                 taskSteps={values.taskSteps}
                 setFieldValue={setFieldValue}
             />

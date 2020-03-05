@@ -1,5 +1,4 @@
 import React from 'react';
-import {ErrorMessage} from "formik";
 import {CheckboxInput} from "./CheckboxInput";
 import styled from "styled-components";
 import {FormFieldContainer, StyledErrorMessage, StyledLabel} from "../styled";

@@ -4,7 +4,7 @@ import {ModalWrapper} from "../../../../../wrappers/ModalWrapper";
 import {UserCircle} from "../../../../common/UserCircle";
 
 
-export const DisplayTaskModal = ({closeModal, task}: { closeModal: any, task: any }) => (
+export const DisplayTaskModal = ({closeModal, task, developers}: { closeModal: any, task: any, developers: any }) => (
     <ModalWrapper
         closeModal={closeModal}
         width={400}
@@ -49,18 +49,24 @@ export const DisplayTaskModal = ({closeModal, task}: { closeModal: any, task: an
             <TaskFooter>
                 <UsersWrapper>
                     <UserCircleWrapper left>
-                        <UserCircle/>
+                        <UserCircle
+                            user={developers.createdBy}
+                        />
                     </UserCircleWrapper>
                     created at
                     <CreatedAt>
                         12:48 12-08
                     </CreatedAt>
                     for
-                    <UserCircleWrapper
-                        right
-                    >
-                        <UserCircle/>
-                    </UserCircleWrapper>
+                    {developers.createdFor.map((item: any, key: any) => (
+                        <UserCircleWrapper
+                            right
+                        >
+                            <UserCircle
+                                user={item}
+                            />
+                        </UserCircleWrapper>
+                    ))}
                 </UsersWrapper>
             </TaskFooter>
         </DisplayTaskModalContainer>
@@ -115,7 +121,11 @@ const UsersWrapper = styled.div`
 `;
 
 const UserCircleWrapper = styled.div<{ left?: boolean, right?: boolean }>`
-    margin: ${p => p.left ? '0 8px 0 0' : p.right ? '0 0 0 8px' : ''}
+    margin: ${p => p.left ? '0 4px 0 0' : p.right ? '0 0 0 7px' : ''};
+    
+    &:nth-child(n+4) {
+          margin: ${p => p.right ? '0 0 0 -30px' : ''};
+    }
 `;
 
 const CreatedAt = styled.b`

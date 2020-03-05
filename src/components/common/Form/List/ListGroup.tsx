@@ -5,7 +5,7 @@ import {FormFieldContainer, StyledLabel} from "../styled";
 import {Button} from "../../Buttons";
 
 
-export const ListGroup = ({name, placeholder, taskSteps, setFieldValue}: { name: any, placeholder: any, taskSteps: any, setFieldValue: any }) => {
+export const ListGroup = ({name, placeholder, listItemPlaceholder, taskSteps, setFieldValue}: { name: any, placeholder: any, listItemPlaceholder: any, taskSteps: any, setFieldValue: any }) => {
     const addNewItem = () => {
         setFieldValue('taskSteps', [...taskSteps, ''])
     };
@@ -39,7 +39,7 @@ export const ListGroup = ({name, placeholder, taskSteps, setFieldValue}: { name:
                         key={key}
                         name={name}
                         index={key}
-                        placeholder={placeholder}
+                        placeholder={listItemPlaceholder}
                         removeItem={removeItem}
                     />
                 ))}

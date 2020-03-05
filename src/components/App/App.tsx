@@ -11,7 +11,6 @@ import {PageWrapper} from "../../wrappers/PageWrapper";
 import {TransitionGroup, Transition} from "react-transition-group";
 import {exit, play} from "../../services/Animate";
 import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
-import ModalProvider from "../../providers/ModalProvider";
 
 
 class App extends React.Component {

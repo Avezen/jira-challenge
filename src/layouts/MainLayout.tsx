@@ -100,9 +100,12 @@ const Navigation = styled.nav<{ menuToggle: boolean }>`
 
 const Main = styled.main<{ menuToggle: boolean, isMobile: boolean }>`
     width: 100%;
+    height: 100%;
     margin-top: 4em;
     transition: 500ms;
     margin-left: ${props => props.isMobile ? 0 : props.menuToggle ? 12 : 0}em;
+    overflow: auto;
+    position: absolute;
 `;
 
 const Overlay = styled.div`
