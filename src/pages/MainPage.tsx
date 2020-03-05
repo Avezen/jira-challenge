@@ -15,6 +15,7 @@ export class MainPageBase extends Component<WithHelmetProps & RouteComponentProp
             <ModalProvider>
                 <StyledContainer
                     fluid
+                    className={'content'}
                 >
                     <BackgroundImage
                         image={bg1}

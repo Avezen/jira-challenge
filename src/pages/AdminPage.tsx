@@ -5,7 +5,9 @@ import {RouteComponentProps, withRouter} from "react-router-dom";
 export class AdminPageBase extends Component<WithHelmetProps & RouteComponentProps> {
     render() {
         return (
-            <div>
+            <div
+                className={'content'}
+            >
                 Admin Page
             </div>
         );

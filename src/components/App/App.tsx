@@ -30,37 +30,37 @@ class App extends React.Component {
             <Provider store={store}>
                 <IntlProvider locale="en" messages={flattenMessages(messages['en'])}>
                     <Router>
-                            <PageWrapper>
-                                <Route
-                                    render={({location}) => {
-                                        const {pathname, key} = location;
+                        <PageWrapper>
+                            <Route
+                                render={({location}) => {
+                                    const {pathname, key} = location;
 
-                                        return (
-                                            <TransitionGroup>
-                                                <Transition
-                                                    key={key}
-                                                    appear={true}
-                                                    onEnter={(node: any, appears: any) => play(pathname, node, appears)}
-                                                    onExit={(node: any) => exit(node)}
-                                                    timeout={{enter: 750, exit: 150}}
-                                                >
-                                                    <Switch location={location}>
-                                                        {routeComponents}
-                                                        <Route
-                                                            exact={true}
-                                                            path='/login'
-                                                            component={() => {
-                                                                window.location.href = ('http://127.0.0.1:8000/login');
-                                                                return null;
-                                                            }}
-                                                        />
-                                                    </Switch>
-                                                </Transition>
-                                            </TransitionGroup>
-                                        )
-                                    }}
-                                />
-                            </PageWrapper>
+                                    return (
+                                        <TransitionGroup>
+                                            <Transition
+                                                key={key}
+                                                appear={true}
+                                                onEnter={(node: any, appears: any) => play(pathname, node, appears)}
+                                                onExit={(node: any) => exit(node)}
+                                                timeout={{enter: 750, exit: 150}}
+                                            >
+                                                <Switch location={location}>
+                                                    {routeComponents}
+                                                    <Route
+                                                        exact={true}
+                                                        path='/login'
+                                                        component={() => {
+                                                            window.location.href = ('http://127.0.0.1:8000/login');
+                                                            return null;
+                                                        }}
+                                                    />
+                                                </Switch>
+                                            </Transition>
+                                        </TransitionGroup>
+                                    )
+                                }}
+                            />
+                        </PageWrapper>
                     </Router>
                 </IntlProvider>
             </Provider>

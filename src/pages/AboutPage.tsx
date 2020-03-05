@@ -5,8 +5,12 @@ import {RouteComponentProps, withRouter} from "react-router-dom";
 class AboutPageBase extends Component<WithHelmetProps & RouteComponentProps> {
     render() {
         return (
-            <div className={'content'}>
-                <div className={'content--inner'}>
+            <div
+                className={'content'}
+            >
+                <div
+                    className={'content--inner'}
+                >
                     AboutPage
                 </div>
             </div>
