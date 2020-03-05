@@ -1,4 +1,11 @@
+import { gsap } from 'gsap'
 import { TimelineMax as Timeline, Power1 } from 'gsap';
+import { CSSPlugin } from 'gsap/CSSPlugin';
+
+// Force CSSPlugin to not get dropped during build
+gsap.registerPlugin(CSSPlugin);
+
+
 
 let prevPath = null;
 
