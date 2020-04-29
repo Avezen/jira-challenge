@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {withHelmet, WithHelmetProps} from "../components/HOC/withHelmet";
+import {withHelmet, WithHelmetProps} from "../../hoc/withHelmet";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 
 export class AdminPageBase extends Component<WithHelmetProps & RouteComponentProps> {

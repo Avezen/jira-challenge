@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {withHelmet, WithHelmetProps} from "../components/HOC/withHelmet";
+import {withHelmet, WithHelmetProps} from "../../hoc/withHelmet";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {Col, Container, Row} from "react-bootstrap";
 import styled from "styled-components";
-import bg1 from "../assets/backgrounds/bg1.png"
-import ColumnsCarouselContainer from "../components/MainPage/ColumnsCarousel/ColumnsCarouselContainer";
-import ModalProvider from "../providers/ModalProvider";
+import bg1 from "../../assets/backgrounds/bg1.png"
+import ColumnsCarouselContainer from "./components/ColumnsCarousel/ColumnsCarouselContainer";
+import ModalProvider from "../../providers/ModalProvider";
 
 
 export class MainPageBase extends Component<WithHelmetProps & RouteComponentProps> {

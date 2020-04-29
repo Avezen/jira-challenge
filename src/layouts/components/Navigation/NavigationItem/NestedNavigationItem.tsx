@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useState} from "react";
-import {NavigationItem} from "../../../containers/NavigationItem";
+import {NavigationItem} from "../../../../containers/NavigationItem";
 import {useEffect} from "react";
 import styled from "styled-components";
 

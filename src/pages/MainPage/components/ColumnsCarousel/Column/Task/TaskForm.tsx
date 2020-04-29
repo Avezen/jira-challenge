@@ -1,18 +1,15 @@
 import React from "react";
-import {
-    Field,
-} from 'formik';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import styled from "styled-components";
-import {TextInput} from "../../../../common/Form/TextInput";
-import {RadioGroup} from "../../../../common/Form/Radio/RadioGroup";
-import {ListGroup} from "../../../../common/Form/List/ListGroup";
-import {TextareaInput} from "../../../../common/Form/TextareaInput";
-import {CheckboxGroup} from "../../../../common/Form/Checkbox/CheckboxGroup";
-import avatar1 from "../../../../../assets/avatars/avatar1.jpg";
-import avatar2 from "../../../../../assets/avatars/avatar2.jpg";
-import {Button} from "../../../../common/Buttons";
+import {TextInput} from "../../../../../../components/common/Form/TextInput";
+import {RadioGroup} from "../../../../../../components/common/Form/Radio/RadioGroup";
+import {ListGroup} from "../../../../../../components/common/Form/List/ListGroup";
+import {TextareaInput} from "../../../../../../components/common/Form/TextareaInput";
+import {CheckboxGroup} from "../../../../../../components/common/Form/Checkbox/CheckboxGroup";
+import avatar1 from "../../../../../../assets/avatars/avatar1.jpg";
+import avatar2 from "../../../../../../assets/avatars/avatar2.jpg";
+import {Button} from "../../../../../../components/common/Buttons";
 
 const categories = [
     {
@@ -71,17 +68,17 @@ export const TaskForm = ({values, setFieldValue}: { values: any, setFieldValue: 
 
         <Col lg={12}>
             <ListGroup
-                name={'taskSteps'}
+                name={'steps'}
                 placeholder={'Task Steps'}
                 listItemPlaceholder={'Task step description'}
-                taskSteps={values.taskSteps}
+                steps={values.steps}
                 setFieldValue={setFieldValue}
             />
         </Col>
 
         <Col lg={12}>
             <CheckboxGroup
-                name={'taskDevelopers'}
+                name={'developers'}
                 placeholder={'Task Developers'}
                 checkboxes={developers}
             />

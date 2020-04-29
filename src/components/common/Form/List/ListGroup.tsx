@@ -5,14 +5,14 @@ import {FormFieldContainer, StyledLabel} from "../styled";
 import {Button} from "../../Buttons";
 
 
-export const ListGroup = ({name, placeholder, listItemPlaceholder, taskSteps, setFieldValue}: { name: any, placeholder: any, listItemPlaceholder: any, taskSteps: any, setFieldValue: any }) => {
+export const ListGroup = ({name, placeholder, listItemPlaceholder, steps, setFieldValue}: { name: any, placeholder: any, listItemPlaceholder: any, steps: any, setFieldValue: any }) => {
     const addNewItem = () => {
-        setFieldValue('taskSteps', [...taskSteps, ''])
+        setFieldValue(name, [...steps, ''])
     };
 
     const removeItem = (index: any) => {
-        taskSteps.splice(index, 1);
-        setFieldValue('taskSteps', [...taskSteps])
+        steps.splice(index, 1);
+        setFieldValue(name, [...steps])
     };
 
     return (
@@ -34,7 +34,7 @@ export const ListGroup = ({name, placeholder, listItemPlaceholder, taskSteps, se
             <ListContainer
                 id={name}
             >
-                {taskSteps.length > 0 && taskSteps.map((item: any, key: any) => (
+                {steps.length > 0 && steps.map((item: any, key: any) => (
                     <ListItemInput
                         key={key}
                         name={name}

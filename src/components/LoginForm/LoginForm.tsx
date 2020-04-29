@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 // @ts-ignore
 import {Button, Form} from "react-bootstrap";
-import {withSecurity} from "../HOC/withSecurity";
+import {withSecurity} from "../../hoc/withSecurity";
 import styled, {keyframes} from "styled-components";
 
 export interface LoginFormBaseProps {

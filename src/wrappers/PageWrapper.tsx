@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import MainLayout from "../layouts/MainLayout";
 import { Location } from 'history';
-import {AppBar} from "../components/AppBar/AppBar";
+import {AppBar} from "../layouts/components/AppBar/AppBar";
 import {menuItems} from "../constans/menu";
 import {authenticatedUser} from "../store/reducers/authentication";
 import {navigationItems} from "../constans/navigation";
-import {Navigation} from "../components/Navigation/Navigation";
+import {Navigation} from "../layouts/components/Navigation/Navigation";
 import {connect} from "react-redux";
-import {withSecurity} from "../components/HOC/withSecurity";
+import {withSecurity} from "../hoc/withSecurity";
 import {LoginFormBaseProps} from "../components/LoginForm/LoginForm";
 import {fetchNavigationIfNeeded, selectMenuItem} from "../store/actions/fetchNavigation";
 import {RouteComponentProps, withRouter} from "react-router-dom";

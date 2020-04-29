@@ -1,5 +1,5 @@
 import {REQUEST_USER, RECEIVE_USER} from "../actions/authentication";
-import {isObjectEmpty} from "../../helpers";
+import {isObjectEmpty} from "../../utils";
 
 
 

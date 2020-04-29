@@ -1,5 +1,5 @@
 import React from 'react';
-import {ModalWrapper} from "../../../../../../wrappers/ModalWrapper";
+import {ModalWrapper} from "../../../../../../../wrappers/ModalWrapper";
 import {NewTask} from "./NewTask";
 
 

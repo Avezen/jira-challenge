@@ -1,3 +1,4 @@
+// @ts-ignore
 import * as Yup from 'yup';
 
 export const newTaskFormValidationSchema = Yup.object({
@@ -14,14 +15,14 @@ export const newTaskFormValidationSchema = Yup.object({
     category: Yup.string()
         .required('Please choose task category')
     ,
-    taskSteps: Yup.array().of(
+    steps: Yup.array().of(
         Yup.string()
             .required('Please set task step description or remove it')
             .min(5, 'Task step must be at least 5 characters')
             .max(100, 'Task step must be at most 100 characters')
     )
     ,
-    taskDevelopers: Yup.array().of(
+    developers: Yup.array().of(
         Yup.string()
             .required('Required')
     )

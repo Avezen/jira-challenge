@@ -2,7 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 import {ConnectDropTarget} from "react-dnd";
 import TaskItem from "./Task/TaskItemContainer";
-import {ModalContext} from "../../../../providers/ModalProvider";
+import {ModalContext} from "../../../../../providers/ModalProvider";
 import {DisplayTaskModal} from "./Task/DisplayTaskModal";
 import {NewTaskModal} from "./Task/New/NewTaskModal";
 

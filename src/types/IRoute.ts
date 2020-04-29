@@ -1,6 +1,6 @@
 import { ComponentType } from 'react';
 
-import { WithHelmetProps } from '../components/HOC/withHelmet';
+import { WithHelmetProps } from '../hoc/withHelmet';
 
 export interface IRoute {
   path: string;

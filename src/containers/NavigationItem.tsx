@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {NestedNavigationItem} from "../components/Navigation/NavigationItem/NestedNavigationItem";
-import {NavigationItemLink} from "../components/Navigation/NavigationItem/NavigationItemLink";
+import {NestedNavigationItem} from "../layouts/components/Navigation/NavigationItem/NestedNavigationItem";
+import {NavigationItemLink} from "../layouts/components/Navigation/NavigationItem/NavigationItemLink";
 
 export interface NavigationItemProps {
     className?: any;

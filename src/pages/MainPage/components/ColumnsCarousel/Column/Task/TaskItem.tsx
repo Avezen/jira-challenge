@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from "styled-components";
-import {UserCircle} from "../../../../common/UserCircle";
+import {UserCircle} from "../../../../../../components/common/UserCircle";
 import {DisplayTaskModal} from "./DisplayTaskModal";
-import {ModalContext} from '../../../../../providers/ModalProvider';
-import avatar1 from "../../../../../assets/avatars/avatar1.jpg";
-import avatar2 from "../../../../../assets/avatars/avatar2.jpg";
+import {ModalContext} from '../../../../../../providers/ModalProvider';
+import avatar1 from "../../../../../../assets/avatars/avatar1.jpg";
+import avatar2 from "../../../../../../assets/avatars/avatar2.jpg";
 
 
 export interface TaskItemProps {
@@ -58,7 +58,7 @@ export const TaskItem = ({
                     </h5>
                     <ItemCategorySpan>
                         <small>
-                            BUG
+                            {task.category}
                         </small>
                     </ItemCategorySpan>
                 </TaskItemHeader>
@@ -79,6 +79,7 @@ export const TaskItem = ({
                         <RightArrow/>
                         {developers.createdFor.map((item: any, key: any) => (
                             <UserCircleWrapper
+                                key={key}
                                 right
                             >
                                 <UserCircle

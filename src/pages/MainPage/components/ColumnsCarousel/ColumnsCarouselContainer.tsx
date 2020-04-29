@@ -1,19 +1,44 @@
 import React, {Component, createRef} from 'react';
 import {ColumnsCarousel} from "./ColumnsCarousel";
 import update from "immutability-helper";
+import {storage} from "../../../../services/StorageService";
+import {isObjectEmpty} from "../../../../utils";
 
 let columns = [
     {
         id: 1,
         name: 'Column one',
+        description: '',
         tasks: [
             {
                 id: 6,
-                name: 'Task number six tra ta ta ta extender lorem impum '
+                name: 'Task number six tra ta ta ta extender lorem impum ',
+                description: 'Task description',
+                category: 'BUG',
+                steps: [
+                    'Task step number one',
+                    'Task step number two',
+                    'Task step number three',
+                ],
+                developers: [
+                    1,2
+                ],
+                createdBy: 1
             },
             {
                 id: 8,
-                name: 'Task number 8'
+                name: 'Task number 8',
+                description: 'Task description',
+                category: 'BUG',
+                steps: [
+                    'Task step number one',
+                    'Task step number two',
+                    'Task step number three',
+                ],
+                developers: [
+                    1,2
+                ],
+                createdBy: 1
             }
         ]
     },
@@ -23,23 +48,33 @@ let columns = [
         tasks: [
             {
                 id: 1,
-                name: 'Task number 1'
+                name: 'Task number 1',
+                description: 'Task description',
+                category: 'BUG',
+                steps: [
+                    'Task step number one',
+                    'Task step number two',
+                    'Task step number three',
+                ],
+                developers: [
+                    1,2
+                ],
+                createdBy: 1
             },
             {
                 id: 2,
-                name: 'Task number 2'
-            },
-            {
-                id: 3,
-                name: 'Task number 3'
-            },
-            {
-                id: 4,
-                name: 'Task number 4'
-            },
-            {
-                id: 5,
-                name: 'Task number 5'
+                name: 'Task number 2',
+                description: 'Task description',
+                category: 'BUG',
+                steps: [
+                    'Task step number one',
+                    'Task step number two',
+                    'Task step number three',
+                ],
+                developers: [
+                    1,2
+                ],
+                createdBy: 1
             }
         ]
     },
@@ -49,15 +84,33 @@ let columns = [
         tasks: [
             {
                 id: 9,
-                name: 'Task number 9'
+                name: 'Task number 9',
+                description: 'Task description',
+                category: 'BUG',
+                steps: [
+                    'Task step number one',
+                    'Task step number two',
+                    'Task step number three',
+                ],
+                developers: [
+                    1,2
+                ],
+                createdBy: 1
             },
             {
                 id: 10,
-                name: 'Task number 10'
-            },
-            {
-                id: 11,
-                name: 'Task number 11'
+                name: 'Task number 10',
+                description: 'Task description',
+                category: 'BUG',
+                steps: [
+                    'Task step number one',
+                    'Task step number two',
+                    'Task step number three',
+                ],
+                developers: [
+                    1,2
+                ],
+                createdBy: 1
             }
         ]
     },
@@ -67,11 +120,33 @@ let columns = [
         tasks: [
             {
                 id: 12,
-                name: 'Task number 12'
+                name: 'Task number 12',
+                description: 'Task description',
+                category: 'BUG',
+                steps: [
+                    'Task step number one',
+                    'Task step number two',
+                    'Task step number three',
+                ],
+                developers: [
+                    1,2
+                ],
+                createdBy: 1
             },
             {
                 id: 13,
-                name: 'Task number 13'
+                name: 'Task number 13',
+                description: 'Task description',
+                category: 'BUG',
+                steps: [
+                    'Task step number one',
+                    'Task step number two',
+                    'Task step number three',
+                ],
+                developers: [
+                    1,2
+                ],
+                createdBy: 1
             }
         ]
     },
@@ -81,11 +156,33 @@ let columns = [
         tasks: [
             {
                 id: 14,
-                name: 'Task number 14'
+                name: 'Task number 14',
+                description: 'Task description',
+                category: 'BUG',
+                steps: [
+                    'Task step number one',
+                    'Task step number two',
+                    'Task step number three',
+                ],
+                developers: [
+                    1,2
+                ],
+                createdBy: 1
             },
             {
                 id: 15,
-                name: 'Task number 15'
+                name: 'Task number 15',
+                description: 'Task description',
+                category: 'BUG',
+                steps: [
+                    'Task step number one',
+                    'Task step number two',
+                    'Task step number three',
+                ],
+                developers: [
+                    1,2
+                ],
+                createdBy: 1
             }
         ]
     }
@@ -98,16 +195,17 @@ export interface ColumnsCarouselProps {
 }
 
 export interface ColumnsCarouselState {
-    items: any;
+    items: any[];
     currentItem: number;
 }
 
 class ColumnsCarouselContainer extends Component<{}, ColumnsCarouselState> {
     state = {
-        items: columns,
+        items: isObjectEmpty(storage.getObject('columns')) ? columns : storage.getObject('columns'),
         currentItem: 0,
     };
     itemRef: any = createRef();
+
 
     render() {
         const {items, currentItem} = this.state;
@@ -130,7 +228,7 @@ class ColumnsCarouselContainer extends Component<{}, ColumnsCarouselState> {
     changeItemColumn = (hoverColumnId: number, dragItemId: number, dragItemIndex: number, dragColumnIndex: number) => {
         const {items} = this.state;
 
-        const hoverColumnIndex = items.findIndex((obj) => {
+        const hoverColumnIndex = items.findIndex((obj: any) => {
             return obj.id === hoverColumnId
         });
 
@@ -158,6 +256,8 @@ class ColumnsCarouselContainer extends Component<{}, ColumnsCarouselState> {
                 }
         });
 
+        storage.setObject('columns', updatedColumns);
+
         this.setState(
             {items: updatedColumns}
         );
@@ -179,6 +279,8 @@ class ColumnsCarouselContainer extends Component<{}, ColumnsCarouselState> {
                     }
                 }
         });
+
+        storage.setObject('columns', updatedColumns);
 
         this.setState(
             {items: updatedColumns}

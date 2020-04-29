@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {withHelmet, WithHelmetProps} from "../components/HOC/withHelmet";
+import {withHelmet, WithHelmetProps} from "../../hoc/withHelmet";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 
 class AboutPageBase extends Component<WithHelmetProps & RouteComponentProps> {
@@ -11,7 +11,7 @@ class AboutPageBase extends Component<WithHelmetProps & RouteComponentProps> {
                 <div
                     className={'content--inner'}
                 >
-                    AboutPage
+                    About page
                 </div>
             </div>
         );

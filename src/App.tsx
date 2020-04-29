@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 // @ts-ignore
-import {messages} from '../../constans/messages';
-import {flattenMessages} from '../../helpers/flattenMessages';
+import {messages} from './constans/messages';
+import {flattenMessages} from './utils/flattenMessages';
 import {IntlProvider} from "react-intl";
-import {DEFAULT_ROUTE, GLOBAL_ROUTES} from "../../constans/routerConfig";
+import {DEFAULT_ROUTE, GLOBAL_ROUTES} from "./constans/routerConfig";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Provider} from "react-redux";
-import {store} from "../../store";
-import {PageWrapper} from "../../wrappers/PageWrapper";
+import {store} from "./store";
+import {PageWrapper} from "./wrappers/PageWrapper";
 import {TransitionGroup, Transition} from "react-transition-group";
-import {exit, play} from "../../services/Animate";
+import {exit, play} from "./services/Animate";
 import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
 
 

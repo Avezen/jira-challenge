@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 // import logo from "../../assets/compendium.png";
 import {Menu} from "../Menu/Menu";
-import {LoginForm} from "../LoginForm/LoginForm";
+import {LoginForm} from "../../../components/LoginForm/LoginForm";
 import styled from "styled-components";
 
 export interface AppBarProps {
