@@ -43,7 +43,7 @@ export const ColumnsCarousel = ({
                 <NoWrapRow
                     translate={columnTranslateByNumber(currentColumn)}
                 >
-                    {columns.map((column: any, key: any) =>
+                    {columns.length > 0 && columns.map((column: any, key: any) =>
                         <Col
                             lg={3}
                             key={key}

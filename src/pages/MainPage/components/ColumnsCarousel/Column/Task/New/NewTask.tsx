@@ -9,6 +9,7 @@ import {TaskForm} from "../TaskForm";
 import {SubmitFn} from "../../../../../../../types/FormikSubmit";
 import {ITaskForm} from "../../../../../../../types/ITask";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {postTask} from "../../../../../../../services/TaskApi";
 import {createTask} from "../../../../../../../services/TaskService";
 
 
@@ -45,7 +46,7 @@ class NewTaskBase extends Component<RouteComponentProps> {
                 isFetching: true,
             },
             () => {
-                createTask(columnId, values).then(
+                postTask(columnId, values).then(
                     this.onSaveSuccess(values, actions),
                     this.onSaveFailure(values, actions)
                 );
@@ -53,10 +54,11 @@ class NewTaskBase extends Component<RouteComponentProps> {
         );
     };
 
-    onSaveSuccess: SubmitFn<ITaskForm> = (values, actions) => ({data}: any) => {
+    onSaveSuccess: SubmitFn<ITaskForm> = (values, actions) => ({columnId, payload}: any) => {
         const {history} = this.props;
         this.setState({sendingErrorMessage: '', isFetching: false}, () => {
             actions.setSubmitting(false);
+            createTask(columnId, payload);
 
             // history.push(`/${PUBLIC_ROUTES.MAIN}`);
         });
@@ -68,6 +70,7 @@ class NewTaskBase extends Component<RouteComponentProps> {
             () => {
                 actions.setSubmitting(false);
                 actions.setErrors(errors);
+                console.log('error');
             }
         );
     };

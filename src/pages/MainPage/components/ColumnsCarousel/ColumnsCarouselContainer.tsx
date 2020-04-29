@@ -3,6 +3,8 @@ import {ColumnsCarousel} from "./ColumnsCarousel";
 import update from "immutability-helper";
 import {storage} from "../../../../services/StorageService";
 import {isObjectEmpty} from "../../../../utils";
+import {connect} from "react-redux";
+import {getTasks} from "../../../../store/actions/taskActions";
 
 let columns = [
     {
@@ -189,9 +191,8 @@ let columns = [
 ];
 
 export interface ColumnsCarouselProps {
-    columns: any[];
-    moveItem: any;
-    changeItemColumn: any;
+    getTasks: any;
+    tasks: any[];
 }
 
 export interface ColumnsCarouselState {
@@ -199,7 +200,7 @@ export interface ColumnsCarouselState {
     currentItem: number;
 }
 
-class ColumnsCarouselContainer extends Component<{}, ColumnsCarouselState> {
+class ColumnsCarouselContainer extends Component<ColumnsCarouselProps, ColumnsCarouselState> {
     state = {
         items: isObjectEmpty(storage.getObject('columns')) ? columns : storage.getObject('columns'),
         currentItem: 0,
@@ -207,12 +208,19 @@ class ColumnsCarouselContainer extends Component<{}, ColumnsCarouselState> {
     itemRef: any = createRef();
 
 
+    componentDidMount() {
+        const {getTasks} = this.props;
+
+        getTasks();
+    }
+
+
     render() {
         const {items, currentItem} = this.state;
-
+        const {tasks} = this.props;
         return (
             <ColumnsCarousel
-                columns={items}
+                columns={tasks}
                 currentColumn={currentItem}
                 columnRef={this.itemRef}
                 moveItem={this.moveItem}
@@ -327,4 +335,21 @@ class ColumnsCarouselContainer extends Component<{}, ColumnsCarouselState> {
     };
 }
 
-export default ColumnsCarouselContainer;
+const mapStateToProps = (state: any) => {
+    const {tasks} = state;
+
+    return {
+        tasks: tasks.data
+    }
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        getTasks: () => dispatch(getTasks())
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ColumnsCarouselContainer);

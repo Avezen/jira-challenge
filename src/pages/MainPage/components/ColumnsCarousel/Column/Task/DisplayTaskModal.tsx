@@ -55,6 +55,7 @@ export const DisplayTaskModal = ({closeModal, task, developers}: { closeModal: a
                         for
                         {developers.createdFor.map((item: any, key: any) => (
                             <UserCircleWrapper
+                                key={key}
                                 right
                             >
                                 <UserCircle

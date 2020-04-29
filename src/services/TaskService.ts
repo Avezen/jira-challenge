@@ -7,8 +7,12 @@ export interface TaskRequestError {
   message: string;
 }
 
+
+
 export const createTask = (columnId: IColumn['id'], payload: any) => {
-  return AppAPI.post(`/column/${columnId}/task`, payload);
+  console.log(columnId);
+  console.log(payload);
+
 };
 
 export const updateTask = (taskId: ITask['id'], payload: any) =>
