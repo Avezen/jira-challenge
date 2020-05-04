@@ -7,10 +7,13 @@ import {DEFAULT_ROUTE, GLOBAL_ROUTES} from "./constans/routerConfig";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Provider} from "react-redux";
 import {store} from "./store";
-import {PageWrapper} from "./wrappers/PageWrapper";
+import {PrivatePageWrapper} from "./wrappers/PrivatePageWrapper";
 import {TransitionGroup, Transition} from "react-transition-group";
 import {exit, play} from "./services/Animate";
 import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
+import {PublicPageWrapper} from "./wrappers/PublicPageWrapper";
+import {PUBLIC_ROUTES} from "./constans/routes";
+import {AboutPage} from "./pages/AboutPage/AboutPage";
 
 
 class App extends React.Component {
@@ -29,7 +32,7 @@ class App extends React.Component {
             <Provider store={store}>
                 <IntlProvider locale="en" messages={flattenMessages(messages['en'])}>
                     <Router>
-                        <PageWrapper>
+                        <PrivatePageWrapper>
                             <Route
                                 render={({location}) => {
                                     const {pathname, key} = location;
@@ -45,13 +48,33 @@ class App extends React.Component {
                                             >
                                                 <Switch location={location}>
                                                     {routeComponents}
+                                                </Switch>
+                                            </Transition>
+                                        </TransitionGroup>
+                                    )
+                                }}
+                            />
+                        </PrivatePageWrapper>
+                        <PublicPageWrapper>
+                            <Route
+                                render={({location}) => {
+                                    const {pathname, key} = location;
+
+                                    return (
+                                        <TransitionGroup>
+                                            <Transition
+                                                key={key}
+                                                appear={true}
+                                                onEnter={(node: any, appears: any) => play(pathname, node, appears)}
+                                                onExit={(node: any) => exit(node)}
+                                                timeout={{enter: 750, exit: 150}}
+                                            >
+                                                <Switch location={location}>
                                                     <Route
+                                                        key={key}
                                                         exact={true}
-                                                        path='/login'
-                                                        component={() => {
-                                                            window.location.href = ('http://127.0.0.1:8000/login');
-                                                            return null;
-                                                        }}
+                                                        path={`/${PUBLIC_ROUTES.ABOUT}`}
+                                                        render={(routerProps) => <AboutPage messagePrefix={'dsds'} {...routerProps}/>}
                                                     />
                                                 </Switch>
                                             </Transition>
@@ -59,7 +82,7 @@ class App extends React.Component {
                                     )
                                 }}
                             />
-                        </PageWrapper>
+                        </PublicPageWrapper>
                     </Router>
                 </IntlProvider>
             </Provider>

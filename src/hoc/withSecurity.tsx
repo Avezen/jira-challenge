@@ -1,8 +1,7 @@
 import * as React from 'react';
 import {connect} from "react-redux";
-import {fetchAuthenticatedUser} from "../store/actions/authentication";
 import {LoginFormBaseProps} from "../components/LoginForm/LoginForm";
-import {login, logout} from "../services/FetchUser";
+import {getUser} from "../store/actions/authentication";
 
 export interface WithSecurityProps {
     messagePrefix: string;
@@ -44,17 +43,17 @@ export function withSecurity<P extends WithSecurityProps | LoginFormBaseProps>(
         doAuthentication = () => {
             const {email, password} = this.state;
 
-            this.setState(
-                {isLoading: true, user: null},
-                () =>
-                    login({
-                        email,
-                        password
-                    }).then(
-                        this.onAuthenticationSuccess,
-                        this.onAuthenticationFailure
-                    )
-            );
+            // this.setState(
+            //     {isLoading: true, user: null},
+            //     () =>
+            //         login({
+            //             email,
+            //             password
+            //         }).then(
+            //             this.onAuthenticationSuccess,
+            //             this.onAuthenticationFailure
+            //         )
+            // );
         };
 
         onAuthenticationSuccess = ({data}: any) => {
@@ -81,10 +80,10 @@ export function withSecurity<P extends WithSecurityProps | LoginFormBaseProps>(
         };
 
         doLogout = () => {
-            logout().then(
-                this.onLogoutSuccess,
-                this.onLogoutFailure
-            );
+            // logout().then(
+            //     this.onLogoutSuccess,
+            //     this.onLogoutFailure
+            // );
         };
 
         onLogoutSuccess = ({data}: any) => {
@@ -138,7 +137,7 @@ export function withSecurity<P extends WithSecurityProps | LoginFormBaseProps>(
 
     const mapDispatchToProps = (dispatch: any) => {
         return {
-            fetchAuthenticatedUser: () => dispatch(fetchAuthenticatedUser())
+            fetchAuthenticatedUser: () => dispatch(getUser())
         };
     };
 

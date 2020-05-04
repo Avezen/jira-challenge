@@ -1,43 +1,35 @@
-import {REQUEST_USER, RECEIVE_USER} from "../actions/authentication";
+import {GET_USER_FAILURE, GET_USER_SUCCESS, REQUEST_USER} from "../actions/authentication";
 import {isObjectEmpty} from "../../utils";
 
 
-
-const user = (
-    state: any = {
-        isFetching: false,
-        user: null
-    },
-    action: any
-) => {
-    switch (action.type) {
-        case REQUEST_USER:
-            return Object.assign({}, state, {
-                isFetching: true,
-            });
-        case RECEIVE_USER:
-            return Object.assign({}, state, {
-                isFetching: false,
-                user: isObjectEmpty(action.user) ? null : action.user,
-            });
-        default:
-            return state
-    }
+const initialState: any = {
+    data: [],
+    fetchingTasks: true,
+    error: null
 };
 
-
-export const authenticatedUser = (state = {}, action: any) => {
+export const user = (state = initialState, action: any) => {
     switch (action.type) {
-        case RECEIVE_USER:
         case REQUEST_USER:
-            return Object.assign({}, state, (
-                user(state, action)
-            ));
+            return {
+                ...state,
+                fetchingTasks: true,
+                error: null,
+            };
+        case GET_USER_SUCCESS:
+            return {
+                ...state,
+                data: action.payload.tasks,
+                fetchingTasks: false,
+                error: null
+            };
+        case GET_USER_FAILURE:
+            return {
+                ...state,
+                fetchingTasks: false,
+                error: action.payload.error
+            };
         default:
-            return state
+            return state;
     }
 };
-
-// export const getProducts = state => state.productsReducer.products;
-// export const getProductsPending = state => state.productsReducer.pending;
-// export const getProductsError = state => state.productsReducer.error;

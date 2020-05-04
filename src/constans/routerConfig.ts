@@ -12,11 +12,11 @@ export const GLOBAL_ROUTES: IRoute[] = [
     messagePrefix: 'mainPage',
     path: `/${PUBLIC_ROUTES.MAIN}`,
   },
-  {
-    Component: AboutPage,
-    messagePrefix: 'aboutPage',
-    path: `/${PUBLIC_ROUTES.ABOUT}`,
-  },
+  // {
+  //   Component: AboutPage,
+  //   messagePrefix: 'aboutPage',
+  //   path: `/${PUBLIC_ROUTES.ABOUT}`,
+  // },
   {
     Component: AdminPage,
     messagePrefix: 'adminPage',
