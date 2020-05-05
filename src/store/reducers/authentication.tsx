@@ -3,30 +3,30 @@ import {isObjectEmpty} from "../../utils";
 
 
 const initialState: any = {
-    data: [],
-    fetchingTasks: true,
+    token: null,
+    isFetching: false,
     error: null
 };
 
-export const user = (state = initialState, action: any) => {
+export const authenticatedUser = (state = initialState, action: any) => {
     switch (action.type) {
         case REQUEST_USER:
             return {
                 ...state,
-                fetchingTasks: true,
+                isFetching: true,
                 error: null,
             };
         case GET_USER_SUCCESS:
             return {
                 ...state,
-                data: action.payload.tasks,
-                fetchingTasks: false,
+                token: action.payload.user.token,
+                isFetching: false,
                 error: null
             };
         case GET_USER_FAILURE:
             return {
                 ...state,
-                fetchingTasks: false,
+                isFetching: false,
                 error: action.payload.error
             };
         default:

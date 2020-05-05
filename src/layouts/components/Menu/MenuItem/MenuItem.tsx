@@ -10,14 +10,13 @@ export interface MenuItemProps {
     active: any;
 }
 
-export const MenuItem = ({className, label, to, onClick, active}: MenuItemProps) => {
+export const MenuItem = ({className, label, to}: MenuItemProps) => {
 
     return (
         <MenuListItem>
             <Link
                 to={to}
                 className={className}
-                onClick={() => onClick(label)}
             >
                 <MenuSpan>
                     {label}

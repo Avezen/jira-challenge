@@ -5,7 +5,7 @@ export const navigationItems: INavItem[] = [
   {
     name: 'main',
     label: 'main',
-    to: `${PUBLIC_ROUTES.MAIN}`,
+    to: `${PRIVATE_ROUTES.MAIN}`,
     nestedRoutes: [
 
     ]
@@ -13,7 +13,7 @@ export const navigationItems: INavItem[] = [
   {
     name: 'about',
     label: 'about',
-    to: `${PUBLIC_ROUTES.ABOUT}`,
+    to: `${PRIVATE_ROUTES.ABOUT}`,
     nestedRoutes: [
       {
         name: 'cos',

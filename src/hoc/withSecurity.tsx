@@ -2,6 +2,9 @@ import * as React from 'react';
 import {connect} from "react-redux";
 import {LoginFormBaseProps} from "../components/LoginForm/LoginForm";
 import {getUser} from "../store/actions/authentication";
+import {removeSessionToken, setSessionToken} from "../services/AuthService";
+import {Redirect} from "react-router-dom";
+import {PRIVATE_ROUTES, PUBLIC_ROUTES} from "../constans/routes";
 
 export interface WithSecurityProps {
     messagePrefix: string;
@@ -16,7 +19,6 @@ export interface SecurityHOCProps {
 export interface SecurityHOCState {
     email: string;
     password: string;
-    isLoading: boolean;
     user?: object | null;
     error?: object | null;
 }
@@ -34,81 +36,22 @@ export function withSecurity<P extends WithSecurityProps | LoginFormBaseProps>(
     class SecurityHOC extends React.Component<any & SecurityHOCProps, SecurityHOCState> {
         state = {
             email: 'user@user.com',
-            password: 'useruser',
-            isLoading: false,
+            password: 'user123',
             user: null,
             error: null
         };
 
         doAuthentication = () => {
             const {email, password} = this.state;
+            const {getUser} = this.props;
 
-            // this.setState(
-            //     {isLoading: true, user: null},
-            //     () =>
-            //         login({
-            //             email,
-            //             password
-            //         }).then(
-            //             this.onAuthenticationSuccess,
-            //             this.onAuthenticationFailure
-            //         )
-            // );
-        };
-
-        onAuthenticationSuccess = ({data}: any) => {
-            const {fetchAuthenticatedUser} = this.props;
-            const user = (data.success || null);
-
-            this.setState({user, isLoading: false}, () => {
-                fetchAuthenticatedUser();
-            });
-
-        };
-
-        onAuthenticationFailure = ({response}: any) => {
-            const {fetchAuthenticatedUser} = this.props;
-
-            const error = (response.data.error || null);
-
-            fetchAuthenticatedUser();
-
-            this.setState({
-                error,
-                isLoading: false,
-            });
+            getUser(email, password);
         };
 
         doLogout = () => {
-            // logout().then(
-            //     this.onLogoutSuccess,
-            //     this.onLogoutFailure
-            // );
+            removeSessionToken();
         };
 
-        onLogoutSuccess = ({data}: any) => {
-            const {fetchAuthenticatedUser} = this.props;
-            const user = (data.success || null);
-
-            fetchAuthenticatedUser();
-
-            this.setState({user, isLoading: false}, () => {
-                fetchAuthenticatedUser();
-            });
-        };
-
-        onLogoutFailure = ({response}: any) => {
-            const {fetchAuthenticatedUser} = this.props;
-
-            const error = (response.data.error || null);
-
-            fetchAuthenticatedUser();
-
-            this.setState({
-                error,
-                isLoading: false,
-            });
-        };
 
         handleChange = (input: "email") => (e: React.FormEvent<HTMLInputElement>) => {
             this.setState({
@@ -130,6 +73,10 @@ export function withSecurity<P extends WithSecurityProps | LoginFormBaseProps>(
     const mapStateToProps = (state: any) => {
         const {authenticatedUser} = state;
 
+        if(authenticatedUser.token){
+            setSessionToken(authenticatedUser.token);
+        }
+
         return {
             authenticatedUser
         }
@@ -137,7 +84,7 @@ export function withSecurity<P extends WithSecurityProps | LoginFormBaseProps>(
 
     const mapDispatchToProps = (dispatch: any) => {
         return {
-            fetchAuthenticatedUser: () => dispatch(getUser())
+            getUser: (username: any, password: any) => dispatch(getUser(username, password))
         };
     };
 

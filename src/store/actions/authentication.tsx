@@ -1,4 +1,3 @@
-import {fetchUser} from "../../services/FetchUser";
 import {AppAPI} from "../../services/APIService";
 
 export const REQUEST_USER = 'REQUEST_USER';
@@ -9,10 +8,10 @@ const requestUser = () => ({
     type: REQUEST_USER
 });
 
-const getUserSuccess = (tasks: any) => ({
+const getUserSuccess = (user: any) => ({
     type: GET_USER_SUCCESS,
     payload: {
-        tasks
+        user
     }
 });
 
@@ -23,10 +22,13 @@ const getUserFailure = (error: any) => ({
     }
 });
 
-export const getUser = () => (
+export const getUser = (login: any, password: any) => (
     (dispatch: any) => {
         dispatch(requestUser());
-        AppAPI.get(`/task`)
+        AppAPI.post(`/api/login_check`, {
+            username: login,
+            password: password
+        })
             .then(res => dispatch(getUserSuccess(res.data)))
             .catch(err => dispatch(getUserFailure(err)))
     }

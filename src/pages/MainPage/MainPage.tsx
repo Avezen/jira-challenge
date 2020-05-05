@@ -6,33 +6,34 @@ import styled from "styled-components";
 import bg1 from "../../assets/backgrounds/bg1.png"
 import ColumnsCarouselContainer from "./components/ColumnsCarousel/ColumnsCarouselContainer";
 import ModalProvider from "../../providers/ModalProvider";
+import {PrivatePageWrapper} from "../../wrappers/PrivatePageWrapper";
 
 
 export class MainPageBase extends Component<WithHelmetProps & RouteComponentProps> {
 
     render() {
         return (
-            <ModalProvider>
-                <StyledContainer
-                    fluid
-                    className={'content'}
-                >
-                    <BackgroundImage
-                        image={bg1}
-                    />
-                    <ContentContainer>
-                        <ContentHeaderContainer>
-                            <h3>
-                                Project name
-                            </h3>
-                        </ContentHeaderContainer>
-                        <ContentBodyContainer>
-                            <ColumnsCarouselContainer/>
-                        </ContentBodyContainer>
-                    </ContentContainer>
-                    {/*<FormattedMessage id="navigation.dashboard" />*/}
-                </StyledContainer>
-            </ModalProvider>
+            <PrivatePageWrapper>
+                    <StyledContainer
+                        fluid
+                        className={'content'}
+                    >
+                        <BackgroundImage
+                            image={bg1}
+                        />
+                        <ContentContainer>
+                            <ContentHeaderContainer>
+                                <h3>
+                                    Project name
+                                </h3>
+                            </ContentHeaderContainer>
+                            <ContentBodyContainer>
+                                <ColumnsCarouselContainer/>
+                            </ContentBodyContainer>
+                        </ContentContainer>
+                        {/*<FormattedMessage id="navigation.dashboard" />*/}
+                    </StyledContainer>
+            </PrivatePageWrapper>
         );
     }
 }

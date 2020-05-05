@@ -8,6 +8,9 @@ export const messages = {
         navigation: {
             dashboard: 'en',
         },
+        loginPage: {
+            pageTitle: "Hello Stranger"
+        },
         mainPage: {
             pageTitle: "Main Page"
         },

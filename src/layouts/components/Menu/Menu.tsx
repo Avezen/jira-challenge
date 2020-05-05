@@ -1,22 +1,22 @@
 import * as React from 'react';
 import {MenuItem} from "./MenuItem/MenuItem";
 import styled from "styled-components";
+import {navigationItems} from "../../../constans/navigation";
+import {menuItems} from "../../../constans/menu";
 
 export interface MenuProps {
     handleChange: any;
     menuItems: any;
 }
 
-export const Menu = ({handleChange, menuItems}: MenuProps) => {
+export const Menu = () => {
 
     return (
         <MenuList>
             {menuItems.map((item: any, key: any) => (
                 <MenuItem
                     key={key}
-                    technology={item.label.toUpperCase()}
                     {...item}
-                    onClick={handleChange}
                 />
             ))}
         </MenuList>

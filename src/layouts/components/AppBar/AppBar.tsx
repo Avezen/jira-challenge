@@ -1,71 +1,84 @@
 import React, {useState} from "react";
 // import logo from "../../assets/compendium.png";
 import {Menu} from "../Menu/Menu";
-import {LoginForm} from "../../../components/LoginForm/LoginForm";
+import {LoginForm, LoginFormBaseProps} from "../../../components/LoginForm/LoginForm";
 import styled from "styled-components";
+import {withSecurity} from "../../../hoc/withSecurity";
+import {isAuthenticated} from "../../../services/AuthService";
+import {ModalContext} from "../../../providers/ModalProvider";
+import {LoginFormModal} from "../../../components/LoginForm/LoginFormModal";
+import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
+import {PUBLIC_ROUTES} from "../../../constans/routes";
 
 export interface AppBarProps {
-    menuItems: any;
     handleChange?: any;
-    authenticatedUser: any;
+    authenticatedUser?: any;
     logoutUser: any;
 }
 
-export const AppBar = ({menuItems, handleChange, authenticatedUser, logoutUser}: AppBarProps) => {
+const AppBarBase = ({handleChange, authenticatedUser, doLogout, history}: AppBarProps & LoginFormBaseProps & RouteComponentProps) => {
+    const logout = () => {
+        console.log('logout');
+        doLogout();
 
-    const [formOpen, setFormOpen] = useState(false);
+        setTimeout(() => {
+            history.push(`/${PUBLIC_ROUTES.LOGIN}`)
+
+        }, 200);
+    };
 
     return (
-        <AppBarContainer>
-            <LogoWrapper>
-                {/*<Link to={'/'}>*/}
-                <img src={''} alt={'logo'} width={160}/>
-                {/*</Link>*/}
-            </LogoWrapper>
+        <ModalContext.Consumer>
+            {({openModal, closeModal}) => (
+                <AppBarContainer>
+                    <LogoWrapper>
+                        {/*<Link to={'/'}>*/}
+                        <img src={''} alt={'logo'} width={160}/>
+                        {/*</Link>*/}
+                    </LogoWrapper>
 
-            <Nav>
-                <Menu
-                    menuItems={menuItems}
-                    handleChange={handleChange}
-                />
-            </Nav>
+                    <Nav>
+                        <Menu/>
+                    </Nav>
 
-            {authenticatedUser.isFetching ? (<div>loading</div>) : authenticatedUser.user ?
-                (
-                    <LoginButtonWrapper>
-                        <LoginButton
-                            onClick={() => {
-                                logoutUser()
-                            }}
-                        >
-                            <span>
-                                Log Out
-                            </span>
-                        </LoginButton>
-                    </LoginButtonWrapper>
-                ) : (
-                    <LoginButtonWrapper>
-                        <LoginButton
-                            onClick={() => setFormOpen(true)}
-                        >
-                            <span>
-                                Log In
-                            </span>
-                        </LoginButton>
-                    </LoginButtonWrapper>
-                )
-            }
-
-
-            {formOpen && <LoginForm
-                authenticatedUser={authenticatedUser}
-                setFormOpen={setFormOpen}
-            />}
-
-        </AppBarContainer>
+                    {
+                        authenticatedUser.isFetching ? (
+                            <div>loading</div>
+                        ) : isAuthenticated() ? (
+                            <LoginButtonWrapper>
+                                <LoginButton
+                                    onClick={logout}
+                                >
+                                    <span>
+                                        Log Out
+                                    </span>
+                                </LoginButton>
+                            </LoginButtonWrapper>
+                        ) : (
+                            <LoginButtonWrapper>
+                                <LoginButton
+                                    onClick={() => openModal(
+                                        <LoginFormModal
+                                            closeModal={() => closeModal}
+                                        />
+                                    )}
+                                >
+                                    <span>
+                                        Log In
+                                    </span>
+                                </LoginButton>
+                            </LoginButtonWrapper>
+                        )
+                    }
+                </AppBarContainer>
+            )}
+        </ModalContext.Consumer>
     );
 };
 
+
+const AppBarWithRouter = withRouter(AppBarBase);
+export const AppBar = withSecurity(AppBarWithRouter);
 
 const AppBarContainer = styled.div`
     width: 100%;

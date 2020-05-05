@@ -13,7 +13,8 @@ import {exit, play} from "./services/Animate";
 import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
 import {PublicPageWrapper} from "./wrappers/PublicPageWrapper";
 import {PUBLIC_ROUTES} from "./constans/routes";
-import {AboutPage} from "./pages/AboutPage/AboutPage";
+import {AboutPage} from "./pages/About/AboutPage";
+import ModalProvider from "./providers/ModalProvider";
 
 
 class App extends React.Component {
@@ -31,59 +32,13 @@ class App extends React.Component {
         return (
             <Provider store={store}>
                 <IntlProvider locale="en" messages={flattenMessages(messages['en'])}>
+                    <ModalProvider>
                     <Router>
-                        <PrivatePageWrapper>
-                            <Route
-                                render={({location}) => {
-                                    const {pathname, key} = location;
-
-                                    return (
-                                        <TransitionGroup>
-                                            <Transition
-                                                key={key}
-                                                appear={true}
-                                                onEnter={(node: any, appears: any) => play(pathname, node, appears)}
-                                                onExit={(node: any) => exit(node)}
-                                                timeout={{enter: 750, exit: 150}}
-                                            >
-                                                <Switch location={location}>
-                                                    {routeComponents}
-                                                </Switch>
-                                            </Transition>
-                                        </TransitionGroup>
-                                    )
-                                }}
-                            />
-                        </PrivatePageWrapper>
-                        <PublicPageWrapper>
-                            <Route
-                                render={({location}) => {
-                                    const {pathname, key} = location;
-
-                                    return (
-                                        <TransitionGroup>
-                                            <Transition
-                                                key={key}
-                                                appear={true}
-                                                onEnter={(node: any, appears: any) => play(pathname, node, appears)}
-                                                onExit={(node: any) => exit(node)}
-                                                timeout={{enter: 750, exit: 150}}
-                                            >
-                                                <Switch location={location}>
-                                                    <Route
-                                                        key={key}
-                                                        exact={true}
-                                                        path={`/${PUBLIC_ROUTES.ABOUT}`}
-                                                        render={(routerProps) => <AboutPage messagePrefix={'dsds'} {...routerProps}/>}
-                                                    />
-                                                </Switch>
-                                            </Transition>
-                                        </TransitionGroup>
-                                    )
-                                }}
-                            />
-                        </PublicPageWrapper>
+                        <Switch>
+                            {routeComponents}
+                        </Switch>
                     </Router>
+                    </ModalProvider>
                 </IntlProvider>
             </Provider>
         );

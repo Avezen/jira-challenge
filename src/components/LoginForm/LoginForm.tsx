@@ -1,43 +1,33 @@
 import React, {Component} from 'react';
-// @ts-ignore
 import {Button, Form} from "react-bootstrap";
 import {withSecurity} from "../../hoc/withSecurity";
-import styled, {keyframes} from "styled-components";
+import styled from "styled-components";
+import {Redirect} from "react-router-dom";
+import {PRIVATE_ROUTES} from "../../constans/routes";
+import {isAuthenticated} from "../../services/AuthService";
 
 export interface LoginFormBaseProps {
-    setFormOpen: any;
+    closeModal: any;
     doAuthentication: any;
+    doLogout: any;
     handleChange: any;
     authenticatedUser: any;
     security: any;
 }
 
 class LoginFormBase extends Component<LoginFormBaseProps> {
-    closeForm = () => {
-        const {setFormOpen} = this.props;
-        setFormOpen(false);
-    };
-
     render() {
         const {email, password, isLoading, user, error} = this.props.security;
         const {doAuthentication, handleChange, authenticatedUser} = this.props;
 
-        if(authenticatedUser.user){
-            this.closeForm();
+        if(isAuthenticated()){
+            return <Redirect to={`/${PRIVATE_ROUTES.MAIN}`} />;
         }
 
         return (
-            <LoginModal
-                onClick={this.closeForm}
-            >
                 <LoginFormContainer
                     onClick={(e: any) => e.stopPropagation()}
                 >
-                    <LoginFormCloseButton
-                        onClick={this.closeForm}
-                    >
-                        x
-                    </LoginFormCloseButton>
                     <Form>
                         <Form.Group
                             controlId="formBasicEmail"
@@ -81,14 +71,13 @@ class LoginFormBase extends Component<LoginFormBaseProps> {
                                 variant="primary"
                                 type="button"
                                 onClick={doAuthentication}
-                                style={{backgroundColor: user && 'green', transition: 'all 0.3s'}}
+                                style={{backgroundColor: authenticatedUser.token && 'green', transition: 'all 0.3s'}}
                             >
-                                {isLoading ? '' : user ? 'Success!' : 'Submit'}
+                                {authenticatedUser.isFetching ? '' : authenticatedUser.token ? 'Success!' : 'Submit'}
                             </Button>
                         </LoginFormSubmitButtonContainer>
                     </Form>
                 </LoginFormContainer>
-            </LoginModal>
         );
     }
 }
@@ -96,45 +85,6 @@ class LoginFormBase extends Component<LoginFormBaseProps> {
 export const LoginForm = withSecurity(LoginFormBase);
 
 
-
-const modalMaskOpen = keyframes`
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-`;
-
-const formEnter = keyframes `
-    from {
-        -webkit-transform: translateY(-50px);
-        -moz-transform: translateY(-50px);
-        -ms-transform: translateY(-50px);
-        -o-transform: translateY(-50px);
-        transform: translateY(-50px);
-    }
-    to {
-        -webkit-transform: translateY(0px);
-        -moz-transform: translateY(0px);
-        -ms-transform: translateY(0px);
-        -o-transform: translateY(0px);
-        transform: translateY(0px);
-    }
-`;
-
-const LoginModal = styled.div`
-    height: 100vh;
-    width: 100%;
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    animation: ${modalMaskOpen} 300ms linear;
-
-`;
 
 const LoginFormContainer = styled.div`
     width: 350px;
@@ -146,8 +96,6 @@ const LoginFormContainer = styled.div`
     align-items: center;
     justify-content: center;
     border-radius: 5px;
-    
-    animation: ${formEnter} 300ms linear;
 `;
 
 const LoginFormCloseButton = styled.label`

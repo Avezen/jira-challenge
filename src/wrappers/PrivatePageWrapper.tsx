@@ -8,9 +8,11 @@ import {Navigation} from "../layouts/components/Navigation/Navigation";
 import {connect} from "react-redux";
 import {withSecurity} from "../hoc/withSecurity";
 import {LoginFormBaseProps} from "../components/LoginForm/LoginForm";
-import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
+import {Redirect, RouteComponentProps, Switch, withRouter} from "react-router-dom";
 import {PUBLIC_ROUTES} from "../constans/routes";
 import {isAuthenticated} from "../services/AuthService";
+import {Transition, TransitionGroup} from "react-transition-group";
+import {exit, play} from "../services/Animate";
 
 export interface PageWrapperProps {
     children?: React.ReactNode;
@@ -21,23 +23,19 @@ export interface PageWrapperProps {
     location?: Location;
 }
 
-class PageWrapperBase extends Component<PageWrapperProps & RouteComponentProps & LoginFormBaseProps> {
+class PageWrapperBase extends Component<PageWrapperProps & RouteComponentProps> {
 
     render() {
-        const { children, doLogout, authenticatedUser } = this.props;
+        const { children } = this.props;
 
         if (!isAuthenticated()) {
-            return <Redirect to={`/${PUBLIC_ROUTES.ABOUT}`} />;
+            return <Redirect to={`/${PUBLIC_ROUTES.LOGIN}`} />;
         }
 
         return (
             <MainLayout
                 appBar={
-                    <AppBar
-                        menuItems={menuItems}
-                        authenticatedUser={authenticatedUser}
-                        logoutUser={doLogout}
-                    />
+                    <AppBar/>
                 }
                 navigation={
                     <Navigation
@@ -49,16 +47,9 @@ class PageWrapperBase extends Component<PageWrapperProps & RouteComponentProps &
             />
         );
     }
-
-    componentDidMount() {
-        const {fetchAuthenticatedUser} = this.props;
-
-        fetchAuthenticatedUser();
-    }
 }
 
-const PageWrapperWithRouter = withRouter(PageWrapperBase);
-export const PrivatePageWrapper = withSecurity(PageWrapperWithRouter);
+export const PrivatePageWrapper = withRouter(PageWrapperBase);
 
 
 

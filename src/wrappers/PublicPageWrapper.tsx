@@ -3,6 +3,7 @@ import MainLayout from "../layouts/MainLayout";
 import { Location } from 'history';
 import {LoginFormBaseProps} from "../components/LoginForm/LoginForm";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import PublicLayout from "../layouts/PublicLayout";
 
 export interface PageWrapperProps {
     children?: React.ReactNode;
@@ -11,10 +12,16 @@ export interface PageWrapperProps {
 
 class PageWrapperBase extends Component<PageWrapperProps & RouteComponentProps> {
 
+    componentDidMount() {
+        console.log('public');
+
+    }
+
+
     render() {
         const { children } = this.props;
         return (
-            <MainLayout
+            <PublicLayout
                 pageContent={children}
             />
         );

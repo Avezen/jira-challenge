@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
 import styled from "styled-components";
+import {Transition, TransitionGroup} from "react-transition-group";
+import {exit, play} from "../services/Animate";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 
 export interface MainLayoutProps {
     appBar?: React.ReactNode;
     navigation?: React.ReactNode;
+    children?: React.ReactNode;
     pageContent?: React.ReactNode;
 }
 
@@ -13,7 +17,7 @@ export interface MainLayoutState {
 }
 
 
-class MainLayout extends Component<MainLayoutProps, MainLayoutState> {
+class MainLayoutBase extends Component<MainLayoutProps & RouteComponentProps, MainLayoutState> {
     state = {
         menuToggle: false,
         isMobile: false
@@ -45,8 +49,10 @@ class MainLayout extends Component<MainLayoutProps, MainLayoutState> {
     };
 
     render() {
-        const {appBar, navigation, pageContent} = this.props;
+        const {appBar, navigation, pageContent, location} = this.props;
         const {menuToggle, isMobile} = this.state;
+
+        const {pathname, key} = location;
 
         return (
             <MainLayoutContainer>
@@ -62,13 +68,26 @@ class MainLayout extends Component<MainLayoutProps, MainLayoutState> {
                     menuToggle={menuToggle}
                     isMobile={isMobile}
                 >
-                    {pageContent}
+                    <TransitionGroup>
+                        <Transition
+                            key={key}
+                            appear={true}
+                            onEnter={(node: any, appears: any) => play(pathname, node, appears)}
+                            onExit={(node: any) => exit(node)}
+                            timeout={{enter: 750, exit: 150}}
+                        >
+                            {pageContent}
+                        </Transition>
+                    </TransitionGroup>
                     {menuToggle && isMobile && <Overlay/>}
+
                 </Main>
             </MainLayoutContainer>
         );
     }
 }
+
+const MainLayout = withRouter(MainLayoutBase);
 
 export default MainLayout;
 

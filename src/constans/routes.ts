@@ -1,8 +1,9 @@
 export const PUBLIC_ROUTES = {
-  MAIN: '',
-  ABOUT: 'about',
+  LOGIN: 'login',
 };
 
 export const PRIVATE_ROUTES = {
+  MAIN: '',
+  ABOUT: 'about',
   ADMIN: 'admin',
 };
