@@ -9,8 +9,7 @@ import {TaskForm} from "../TaskForm";
 import {SubmitFn} from "../../../../../../../types/FormikSubmit";
 import {ITaskForm} from "../../../../../../../types/ITask";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {postTask} from "../../../../../../../services/TaskApi";
-import {createTask} from "../../../../../../../services/TaskService";
+import {taskApi} from "../../../../../../../api/task";
 
 
 class NewTaskBase extends Component<RouteComponentProps> {
@@ -46,7 +45,7 @@ class NewTaskBase extends Component<RouteComponentProps> {
                 isFetching: true,
             },
             () => {
-                postTask(columnId, values).then(
+                taskApi.post(columnId, values).then(
                     this.onSaveSuccess(values, actions),
                     this.onSaveFailure(values, actions)
                 );
@@ -58,7 +57,6 @@ class NewTaskBase extends Component<RouteComponentProps> {
         const {history} = this.props;
         this.setState({sendingErrorMessage: '', isFetching: false}, () => {
             actions.setSubmitting(false);
-            createTask(columnId, payload);
 
             // history.push(`/${PUBLIC_ROUTES.MAIN}`);
         });

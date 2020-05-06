@@ -1,4 +1,4 @@
-import {AppAPI} from "../../services/APIService";
+import {taskApi} from "../../api/task";
 
 export const REQUEST_TASKS = 'REQUEST_TASKS';
 export const GET_TASKS_SUCCESS = 'GET_TASKS_SUCCESS';
@@ -25,7 +25,7 @@ const getTasksFailure = (error: any) => ({
 export const getTasks = () => (
     (dispatch: any) => {
         dispatch(requestTasks());
-        AppAPI.get(`/task`)
+        taskApi.fetchAll()
             .then(res => dispatch(getTasksSuccess(res.data)))
             .catch(err => dispatch(getTasksFailure(err)))
     }

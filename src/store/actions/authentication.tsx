@@ -1,4 +1,4 @@
-import {AppAPI} from "../../services/APIService";
+import {authApi} from "../../api/auth";
 
 export const REQUEST_TOKEN = 'REQUEST_TOKEN';
 export const REMOVE_TOKEN = 'REMOVE_TOKEN';
@@ -30,10 +30,7 @@ const getTokenFailure = (error: any) => ({
 export const getUser = (login: any, password: any) => (
     (dispatch: any) => {
         dispatch(requestToken());
-        AppAPI.post(`/api/login_check`, {
-            username: login,
-            password: password
-        })
+        authApi.authenticate(login, password)
             .then(res => dispatch(getTokenSuccess(res.data)))
             .catch(err => dispatch(getTokenFailure(err)))
     }
