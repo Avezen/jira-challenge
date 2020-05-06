@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {connect} from "react-redux";
 import {LoginFormBaseProps} from "../components/LoginForm/LoginForm";
-import {getUser} from "../store/actions/authentication";
+import {getUser, logoutUser} from "../store/actions/authentication";
 import {removeSessionToken, setSessionToken} from "../services/AuthService";
 import {Redirect} from "react-router-dom";
 import {PRIVATE_ROUTES, PUBLIC_ROUTES} from "../constans/routes";
@@ -38,7 +38,7 @@ export function withSecurity<P extends WithSecurityProps | LoginFormBaseProps>(
             email: 'user@user.com',
             password: 'user123',
             user: null,
-            error: null
+            error: null,
         };
 
         doAuthentication = () => {
@@ -49,9 +49,10 @@ export function withSecurity<P extends WithSecurityProps | LoginFormBaseProps>(
         };
 
         doLogout = () => {
-            removeSessionToken();
-        };
+            const { logoutUser } = this.props;
 
+            logoutUser();
+        };
 
         handleChange = (input: "email") => (e: React.FormEvent<HTMLInputElement>) => {
             this.setState({
@@ -71,20 +72,23 @@ export function withSecurity<P extends WithSecurityProps | LoginFormBaseProps>(
     }
 
     const mapStateToProps = (state: any) => {
-        const {authenticatedUser} = state;
+        const {token} = state;
 
-        if(authenticatedUser.token){
-            setSessionToken(authenticatedUser.token);
+        if (token.token) {
+            setSessionToken(token.token);
+        } else {
+            removeSessionToken();
         }
 
         return {
-            authenticatedUser
+            token
         }
     };
 
     const mapDispatchToProps = (dispatch: any) => {
         return {
-            getUser: (username: any, password: any) => dispatch(getUser(username, password))
+            getUser: (username: any, password: any) => dispatch(getUser(username, password)),
+            logoutUser: () => dispatch(logoutUser)
         };
     };
 

@@ -12,20 +12,11 @@ import {PUBLIC_ROUTES} from "../../../constans/routes";
 
 export interface AppBarProps {
     handleChange?: any;
-    authenticatedUser?: any;
+    token?: any;
     logoutUser: any;
 }
 
-const AppBarBase = ({handleChange, authenticatedUser, doLogout, history}: AppBarProps & LoginFormBaseProps & RouteComponentProps) => {
-    const logout = () => {
-        console.log('logout');
-        doLogout();
-
-        setTimeout(() => {
-            history.push(`/${PUBLIC_ROUTES.LOGIN}`)
-
-        }, 200);
-    };
+const AppBarBase = ({handleChange, token, doLogout, history}: AppBarProps & LoginFormBaseProps & RouteComponentProps) => {
 
     return (
         <ModalContext.Consumer>
@@ -42,12 +33,15 @@ const AppBarBase = ({handleChange, authenticatedUser, doLogout, history}: AppBar
                     </Nav>
 
                     {
-                        authenticatedUser.isFetching ? (
+                        token.isFetching ? (
                             <div>loading</div>
                         ) : isAuthenticated() ? (
                             <LoginButtonWrapper>
                                 <LoginButton
-                                    onClick={logout}
+                                    onClick={() => {
+                                        doLogout();
+                                        history.push(`/${PUBLIC_ROUTES.LOGIN}`)
+                                    }}
                                 >
                                     <span>
                                         Log Out

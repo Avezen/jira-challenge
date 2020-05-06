@@ -11,13 +11,6 @@ export interface PageWrapperProps {
 }
 
 class PageWrapperBase extends Component<PageWrapperProps & RouteComponentProps> {
-
-    componentDidMount() {
-        console.log('public');
-
-    }
-
-
     render() {
         const { children } = this.props;
         return (

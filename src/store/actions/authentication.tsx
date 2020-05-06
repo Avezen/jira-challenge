@@ -1,22 +1,27 @@
 import {AppAPI} from "../../services/APIService";
 
-export const REQUEST_USER = 'REQUEST_USER';
-export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
-export const GET_USER_FAILURE = 'GET_USER_FAILURE';
+export const REQUEST_TOKEN = 'REQUEST_TOKEN';
+export const REMOVE_TOKEN = 'REMOVE_TOKEN';
+export const GET_TOKEN_SUCCESS = 'GET_TOKEN_SUCCESS';
+export const GET_TOKEN_FAILURE = 'GET_TOKEN_FAILURE';
 
-const requestUser = () => ({
-    type: REQUEST_USER
+const requestToken = () => ({
+    type: REQUEST_TOKEN
 });
 
-const getUserSuccess = (user: any) => ({
-    type: GET_USER_SUCCESS,
+const removeToken = () => ({
+    type: REMOVE_TOKEN
+});
+
+const getTokenSuccess = (user: any) => ({
+    type: GET_TOKEN_SUCCESS,
     payload: {
         user
     }
 });
 
-const getUserFailure = (error: any) => ({
-    type: GET_USER_FAILURE,
+const getTokenFailure = (error: any) => ({
+    type: GET_TOKEN_FAILURE,
     payload: {
         error
     }
@@ -24,12 +29,14 @@ const getUserFailure = (error: any) => ({
 
 export const getUser = (login: any, password: any) => (
     (dispatch: any) => {
-        dispatch(requestUser());
+        dispatch(requestToken());
         AppAPI.post(`/api/login_check`, {
             username: login,
             password: password
         })
-            .then(res => dispatch(getUserSuccess(res.data)))
-            .catch(err => dispatch(getUserFailure(err)))
+            .then(res => dispatch(getTokenSuccess(res.data)))
+            .catch(err => dispatch(getTokenFailure(err)))
     }
 );
+
+export const logoutUser = (dispatch: any) => dispatch(removeToken());

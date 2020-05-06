@@ -11,14 +11,14 @@ export interface LoginFormBaseProps {
     doAuthentication: any;
     doLogout: any;
     handleChange: any;
-    authenticatedUser: any;
+    token: any;
     security: any;
 }
 
 class LoginFormBase extends Component<LoginFormBaseProps> {
     render() {
-        const {email, password, isLoading, user, error} = this.props.security;
-        const {doAuthentication, handleChange, authenticatedUser} = this.props;
+        const {email, password, error} = this.props.security;
+        const {doAuthentication, handleChange, token} = this.props;
 
         if(isAuthenticated()){
             return <Redirect to={`/${PRIVATE_ROUTES.MAIN}`} />;
@@ -71,9 +71,9 @@ class LoginFormBase extends Component<LoginFormBaseProps> {
                                 variant="primary"
                                 type="button"
                                 onClick={doAuthentication}
-                                style={{backgroundColor: authenticatedUser.token && 'green', transition: 'all 0.3s'}}
+                                style={{backgroundColor: token.token && 'green', transition: 'all 0.3s'}}
                             >
-                                {authenticatedUser.isFetching ? '' : authenticatedUser.token ? 'Success!' : 'Submit'}
+                                {token.isFetching ? '' : token.token ? 'Success!' : 'Submit'}
                             </Button>
                         </LoginFormSubmitButtonContainer>
                     </Form>
@@ -83,7 +83,6 @@ class LoginFormBase extends Component<LoginFormBaseProps> {
 }
 
 export const LoginForm = withSecurity(LoginFormBase);
-
 
 
 const LoginFormContainer = styled.div`

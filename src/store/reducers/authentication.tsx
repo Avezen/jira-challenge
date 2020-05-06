@@ -1,4 +1,4 @@
-import {GET_USER_FAILURE, GET_USER_SUCCESS, REQUEST_USER} from "../actions/authentication";
+import {GET_TOKEN_FAILURE, GET_TOKEN_SUCCESS, REMOVE_TOKEN, REQUEST_TOKEN} from "../actions/authentication";
 import {isObjectEmpty} from "../../utils";
 
 
@@ -8,22 +8,27 @@ const initialState: any = {
     error: null
 };
 
-export const authenticatedUser = (state = initialState, action: any) => {
+export const token = (state = initialState, action: any) => {
     switch (action.type) {
-        case REQUEST_USER:
+        case REQUEST_TOKEN:
             return {
                 ...state,
                 isFetching: true,
                 error: null,
             };
-        case GET_USER_SUCCESS:
+        case REMOVE_TOKEN:
+            return {
+                ...state,
+                token: null,
+            };
+        case GET_TOKEN_SUCCESS:
             return {
                 ...state,
                 token: action.payload.user.token,
                 isFetching: false,
                 error: null
             };
-        case GET_USER_FAILURE:
+        case GET_TOKEN_FAILURE:
             return {
                 ...state,
                 isFetching: false,

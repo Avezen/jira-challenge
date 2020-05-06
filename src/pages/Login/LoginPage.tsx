@@ -3,8 +3,6 @@ import {withHelmet, WithHelmetProps} from "../../hoc/withHelmet";
 import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {PublicPageWrapper} from "../../wrappers/PublicPageWrapper";
 import {LoginForm} from "../../components/LoginForm/LoginForm";
-import {isAuthenticated} from "../../services/AuthService";
-import {PRIVATE_ROUTES} from "../../constans/routes";
 
 class LoginPageBase extends Component<WithHelmetProps & RouteComponentProps> {
 
