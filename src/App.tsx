@@ -7,13 +7,7 @@ import {DEFAULT_ROUTE, GLOBAL_ROUTES} from "./constans/routerConfig";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Provider} from "react-redux";
 import {store} from "./store";
-import {PrivatePageWrapper} from "./wrappers/PrivatePageWrapper";
-import {TransitionGroup, Transition} from "react-transition-group";
-import {exit, play} from "./services/Animate";
 import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
-import {PublicPageWrapper} from "./wrappers/PublicPageWrapper";
-import {PUBLIC_ROUTES} from "./constans/routes";
-import {AboutPage} from "./pages/About/AboutPage";
 import ModalProvider from "./providers/ModalProvider";
 
 
@@ -32,13 +26,13 @@ class App extends React.Component {
         return (
             <Provider store={store}>
                 <IntlProvider locale="en" messages={flattenMessages(messages['en'])}>
-                    <ModalProvider>
                     <Router>
                         <Switch>
-                            {routeComponents}
+                            <ModalProvider>
+                                {routeComponents}
+                            </ModalProvider>
                         </Switch>
                     </Router>
-                    </ModalProvider>
                 </IntlProvider>
             </Provider>
         );

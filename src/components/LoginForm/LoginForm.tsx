@@ -4,7 +4,7 @@ import {withSecurity} from "../../hoc/withSecurity";
 import styled from "styled-components";
 import {Redirect} from "react-router-dom";
 import {PRIVATE_ROUTES} from "../../constans/routes";
-import {isAuthenticated} from "../../services/AuthService";
+import {isAuthenticated} from "../../services/AuthStorage";
 
 export interface LoginFormBaseProps {
     closeModal: any;

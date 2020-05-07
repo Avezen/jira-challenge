@@ -1,10 +1,11 @@
 import React, {Component, createRef} from 'react';
 import {ColumnsCarousel} from "./ColumnsCarousel";
 import update from "immutability-helper";
-import {storage} from "../../../../services/StorageService";
+import {storage, storageType} from "../../../../storage";
 import {isObjectEmpty} from "../../../../utils";
 import {connect} from "react-redux";
 import {getTasks} from "../../../../store/actions/taskActions";
+import {taskStorage} from "../../../../storage/TaskStorage";
 
 let columns = [
     {
@@ -202,11 +203,11 @@ export interface ColumnsCarouselState {
 
 class ColumnsCarouselContainer extends Component<ColumnsCarouselProps, ColumnsCarouselState> {
     state = {
-        items: isObjectEmpty(storage.getObject('columns')) ? columns : storage.getObject('columns'),
+        items: storage.getObject(storageType.COLUMNS),
         currentItem: 0,
     };
-    itemRef: any = createRef();
 
+    itemRef: any = createRef();
 
     componentDidMount() {
         const {getTasks} = this.props;
@@ -214,13 +215,20 @@ class ColumnsCarouselContainer extends Component<ColumnsCarouselProps, ColumnsCa
         getTasks();
     }
 
+    componentDidUpdate(prevProps: any) {
+        const {tasks} = this.props;
+
+        if (this.props.tasks !== prevProps.tasks) {
+            this.setState({items: tasks ? tasks : storage.getObject(storageType.COLUMNS)});
+        }
+    }
 
     render() {
         const {items, currentItem} = this.state;
-        const {tasks} = this.props;
+
         return (
             <ColumnsCarousel
-                columns={tasks}
+                columns={items}
                 currentColumn={currentItem}
                 columnRef={this.itemRef}
                 moveItem={this.moveItem}
@@ -232,39 +240,12 @@ class ColumnsCarouselContainer extends Component<ColumnsCarouselProps, ColumnsCa
         );
     }
 
-    
-    changeItemColumn = (hoverColumnId: number, dragItemId: number, dragItemIndex: number, dragColumnIndex: number) => {
+    changeItemColumn = (destinationColumnId: number, sourceItemId: number, sourceItemIndex: number, sourceColumnIndex: number) => {
         const {items} = this.state;
 
-        const hoverColumnIndex = items.findIndex((obj: any) => {
-            return obj.id === hoverColumnId
-        });
+        taskStorage.changeTaskColumn(items, destinationColumnId, sourceColumnIndex, sourceItemIndex);
 
-        const dragItem = items[dragColumnIndex].tasks[dragItemIndex];
-
-        let updatedColumns = update(items, {
-            [dragColumnIndex]:
-                {
-                    tasks: {
-                        $splice: [
-                            [dragItemIndex, 1]
-                        ],
-                    }
-                }
-        });
-
-        updatedColumns = update(updatedColumns, {
-            [hoverColumnIndex]:
-                {
-                    tasks: {
-                        $splice: [
-                            [0, 0, dragItem],
-                        ],
-                    }
-                }
-        });
-
-        storage.setObject('columns', updatedColumns);
+        const updatedColumns = storage.getObject(storageType.COLUMNS);
 
         this.setState(
             {items: updatedColumns}
@@ -274,21 +255,9 @@ class ColumnsCarouselContainer extends Component<ColumnsCarouselProps, ColumnsCa
     moveItem = (dragColumnIndex: number, dragItemIndex: number, hoverItemIndex: number) => {
         const {items} = this.state;
 
-        const dragItem = items[dragColumnIndex].tasks[dragItemIndex];
+        taskStorage.moveTask(items, dragColumnIndex, dragItemIndex, hoverItemIndex);
 
-        let updatedColumns = update(items, {
-            [dragColumnIndex]:
-                {
-                    tasks: {
-                        $splice: [
-                            [dragItemIndex, 1],
-                            [hoverItemIndex, 0, dragItem],
-                        ],
-                    }
-                }
-        });
-
-        storage.setObject('columns', updatedColumns);
+        const updatedColumns = storage.getObject(storageType.COLUMNS);
 
         this.setState(
             {items: updatedColumns}

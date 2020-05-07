@@ -4,7 +4,7 @@ import {Menu} from "../Menu/Menu";
 import {LoginForm, LoginFormBaseProps} from "../../../components/LoginForm/LoginForm";
 import styled from "styled-components";
 import {withSecurity} from "../../../hoc/withSecurity";
-import {isAuthenticated} from "../../../services/AuthService";
+import {isAuthenticated} from "../../../services/AuthStorage";
 import {ModalContext} from "../../../providers/ModalProvider";
 import {LoginFormModal} from "../../../components/LoginForm/LoginFormModal";
 import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";

@@ -1,3 +1,8 @@
+
+export const storageType = {
+  COLUMNS: 'COLUMNS',
+};
+
 export const storage = {
   set: (key: string, token: string) => localStorage.setItem(key, token),
 

@@ -57,8 +57,9 @@ class NewTaskBase extends Component<RouteComponentProps> {
         const {history} = this.props;
         this.setState({sendingErrorMessage: '', isFetching: false}, () => {
             actions.setSubmitting(false);
+            console.log('dsds');
 
-            // history.push(`/${PUBLIC_ROUTES.MAIN}`);
+
         });
     };
 

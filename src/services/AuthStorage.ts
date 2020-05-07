@@ -1,4 +1,4 @@
-import { storage } from './StorageService';
+import { storage } from '../storage';
 
 const SESSION_TOKEN = 'SESSION_TOKEN';
 

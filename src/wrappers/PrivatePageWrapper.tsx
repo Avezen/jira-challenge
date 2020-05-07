@@ -10,7 +10,7 @@ import {withSecurity} from "../hoc/withSecurity";
 import {LoginFormBaseProps} from "../components/LoginForm/LoginForm";
 import {Redirect, RouteComponentProps, Switch, withRouter} from "react-router-dom";
 import {PUBLIC_ROUTES} from "../constans/routes";
-import {isAuthenticated} from "../services/AuthService";
+import {isAuthenticated} from "../services/AuthStorage";
 import {Transition, TransitionGroup} from "react-transition-group";
 import {exit, play} from "../services/Animate";
 

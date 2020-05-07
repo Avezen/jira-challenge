@@ -2,7 +2,7 @@ import * as React from 'react';
 import {connect} from "react-redux";
 import {LoginFormBaseProps} from "../components/LoginForm/LoginForm";
 import {getUser, logoutUser} from "../store/actions/authentication";
-import {removeSessionToken, setSessionToken} from "../services/AuthService";
+import {removeSessionToken, setSessionToken} from "../services/AuthStorage";
 import {Redirect} from "react-router-dom";
 import {PRIVATE_ROUTES, PUBLIC_ROUTES} from "../constans/routes";
 
@@ -52,6 +52,7 @@ export function withSecurity<P extends WithSecurityProps | LoginFormBaseProps>(
             const { logoutUser } = this.props;
 
             logoutUser();
+            removeSessionToken();
         };
 
         handleChange = (input: "email") => (e: React.FormEvent<HTMLInputElement>) => {
@@ -76,8 +77,6 @@ export function withSecurity<P extends WithSecurityProps | LoginFormBaseProps>(
 
         if (token.token) {
             setSessionToken(token.token);
-        } else {
-            removeSessionToken();
         }
 
         return {
