@@ -1,11 +1,15 @@
 import update from "immutability-helper";
 import {storage, storageType} from "./index";
 
+const getColumnIndexById = (items: any, columnId: any) => {
+    return items.findIndex((obj: any) => {
+        return obj.id === columnId
+    });
+};
+
 export const taskStorage = {
     changeTaskColumn(items: any, destinationColumnId: any, sourceColumnIndex: any, sourceItemIndex: any) {
-        const destinationColumnIndex = items.findIndex((obj: any) => {
-            return obj.id === destinationColumnId
-        });
+        const destinationColumnIndex = getColumnIndexById(items, destinationColumnId);
 
         const dragItem = items[sourceColumnIndex].tasks[sourceItemIndex];
 
@@ -44,6 +48,21 @@ export const taskStorage = {
                             [sourceItemIndex, 1],
                             [destinationItemIndex, 0, dragItem],
                         ],
+                    }
+                }
+        });
+
+        storage.setObject(storageType.COLUMNS, updatedColumns);
+    },
+    addTask (columnId: any, payload: any) {
+        const items = storage.getObject(storageType.COLUMNS);
+        const destinationColumnIndex = getColumnIndexById(items, columnId);
+
+        let updatedColumns = update(items, {
+            [destinationColumnIndex]:
+                {
+                    tasks: {
+                        $push: [payload],
                     }
                 }
         });

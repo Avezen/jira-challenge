@@ -64,6 +64,7 @@ export const ColumnItem = ({
                             onClick={() => openModal(
                                 <NewTaskModal
                                     closeModal={closeModal}
+                                    columnId={column.id}
                                 />
                             )}
                         >

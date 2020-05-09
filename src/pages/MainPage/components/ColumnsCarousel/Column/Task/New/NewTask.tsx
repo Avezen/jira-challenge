@@ -10,9 +10,13 @@ import {SubmitFn} from "../../../../../../../types/FormikSubmit";
 import {ITaskForm} from "../../../../../../../types/ITask";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {taskApi} from "../../../../../../../api/task";
+import {taskStorage} from "../../../../../../../storage/TaskStorage";
 
+interface NewTaskProps {
+    columnId: number;
+}
 
-class NewTaskBase extends Component<RouteComponentProps> {
+class NewTaskBase extends Component<RouteComponentProps & NewTaskProps> {
     render() {
         return (
             <div>
@@ -38,7 +42,8 @@ class NewTaskBase extends Component<RouteComponentProps> {
     }
 
     onRequestSave: SubmitFn<ITaskForm> = (values, actions) => {
-        const columnId = 1;
+        const {columnId} = this.props;
+
         this.setState(
             {
                 sendingErrorMessage: '',
@@ -57,9 +62,8 @@ class NewTaskBase extends Component<RouteComponentProps> {
         const {history} = this.props;
         this.setState({sendingErrorMessage: '', isFetching: false}, () => {
             actions.setSubmitting(false);
-            console.log('dsds');
 
-
+            taskStorage.addTask(columnId, payload)
         });
     };
 

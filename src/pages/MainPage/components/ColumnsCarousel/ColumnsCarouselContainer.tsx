@@ -194,17 +194,20 @@ let columns = [
 export interface ColumnsCarouselProps {
     getTasks: any;
     tasks: any[];
+    error?: object;
 }
 
 export interface ColumnsCarouselState {
     items: any[];
     currentItem: number;
+    error?: object;
 }
 
 class ColumnsCarouselContainer extends Component<ColumnsCarouselProps, ColumnsCarouselState> {
     state = {
         items: storage.getObject(storageType.COLUMNS),
         currentItem: 0,
+        error: [],
     };
 
     itemRef: any = createRef();
@@ -216,10 +219,18 @@ class ColumnsCarouselContainer extends Component<ColumnsCarouselProps, ColumnsCa
     }
 
     componentDidUpdate(prevProps: any) {
-        const {tasks} = this.props;
+        const {tasks, error} = this.props;
 
-        if (this.props.tasks !== prevProps.tasks) {
+        if (tasks !== prevProps.tasks) {
             this.setState({items: tasks ? tasks : storage.getObject(storageType.COLUMNS)});
+        }
+
+        if (error !== prevProps.error) {
+            this.setState({error}, () => {
+                if(!isObjectEmpty(this.state.error)){
+                    alert('Unauthorized - using app in offline mode')
+                }
+            });
         }
     }
 
@@ -308,7 +319,8 @@ const mapStateToProps = (state: any) => {
     const {tasks} = state;
 
     return {
-        tasks: tasks.data
+        tasks: tasks.data,
+        error: tasks.error
     }
 };
 
