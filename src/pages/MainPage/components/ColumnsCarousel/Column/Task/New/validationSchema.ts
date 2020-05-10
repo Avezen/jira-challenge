@@ -15,16 +15,16 @@ export const newTaskFormValidationSchema = Yup.object({
     category: Yup.string()
         .required('Please choose task category')
     ,
-    steps: Yup.array().of(
-        Yup.string()
-            .required('Please set task step description or remove it')
-            .min(5, 'Task step must be at least 5 characters')
-            .max(100, 'Task step must be at most 100 characters')
+    taskSteps: Yup.array().of(
+        Yup.object().shape({
+            name: Yup.string()
+                .required('Please set task step description or remove it')
+                .min(5, 'Task step must be at least 5 characters')
+                .max(100, 'Task step must be at most 100 characters')
+        })
     )
     ,
-    developers: Yup.array().of(
-        Yup.string()
+    createdFor: Yup.string()
             .required('Required')
-    )
     ,
 });

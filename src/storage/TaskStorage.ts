@@ -69,4 +69,7 @@ export const taskStorage = {
 
         storage.setObject(storageType.COLUMNS, updatedColumns);
     },
+    revert () {
+
+    }
 };

@@ -62,8 +62,8 @@ class NewTaskBase extends Component<RouteComponentProps & NewTaskProps> {
         const {history} = this.props;
         this.setState({sendingErrorMessage: '', isFetching: false}, () => {
             actions.setSubmitting(false);
-
-            taskStorage.addTask(columnId, payload)
+            console.log(payload);
+            // taskStorage.addTask(columnId, payload)
         });
     };
 

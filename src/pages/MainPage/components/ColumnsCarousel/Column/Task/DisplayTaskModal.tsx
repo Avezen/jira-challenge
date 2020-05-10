@@ -4,71 +4,70 @@ import {ModalWrapper} from "../../../../../../wrappers/ModalWrapper";
 import {UserCircle} from "../../../../../../components/common/UserCircle";
 
 
-export const DisplayTaskModal = ({closeModal, task, developers}: { closeModal: any, task: any, developers: any }) => {
-    console.log(task);
-    return (
-        <ModalWrapper
-            closeModal={closeModal}
-            width={400}
-        >
-            <DisplayTaskModalContainer>
-                <TaskHeader>
-                    <h4>
-                        {task.name}
-                    </h4>
-                    <TaskCategorySpan>
-                        <small>
-                            {task.category}
-                        </small>
-                    </TaskCategorySpan>
-                </TaskHeader>
+export const DisplayTaskModal = ({closeModal, task}: { closeModal: any, task: any }) => (
+    <ModalWrapper
+        closeModal={closeModal}
+        width={400}
+    >
+        <DisplayTaskModalContainer>
+            <TaskHeader>
+                <h4>
+                    {task.name}
+                </h4>
+                <TaskCategorySpan
+                    id={task.category.id}
+                >
+                    <small>
+                        {task.category.name}
+                    </small>
+                </TaskCategorySpan>
+            </TaskHeader>
 
-                <TaskBody>
-                    <TaskDescription>
-                        {task.description}
-                    </TaskDescription>
-                    <TaskSteps>
-                        {task.steps.map((step: string, key: number) => (
+            <TaskBody>
+                <TaskDescription>
+                    {task.description}
+                </TaskDescription>
+                <TaskSteps>
+                    {task.taskSteps.map((step: any, key: number) => {
+                        console.log(step);
+                        return (
                             <TaskStep
-                                key={key}
+                                key={step.id}
                             >
                                 <input type={'checkbox'}/>
-                                {step}
+                                {step.name}
                             </TaskStep>
-                        ))}
-                    </TaskSteps>
-                </TaskBody>
+                        )
+                    })}
+                </TaskSteps>
+            </TaskBody>
 
-                <hr/>
+            <hr/>
 
-                <TaskFooter>
-                    <UsersWrapper>
-                        <UserCircleWrapper left>
-                            <UserCircle
-                                user={developers.createdBy}
-                            />
-                        </UserCircleWrapper>
-                        created at
-                        <CreatedAt>
-                            12:48 12-08
-                        </CreatedAt>
-                        for
-                        {developers.createdFor.map((item: any, key: any) => (
-                            <UserCircleWrapper
-                                key={key}
-                                right
-                            >
-                                <UserCircle
-                                    user={item}
-                                />
-                            </UserCircleWrapper>
-                        ))}
-                    </UsersWrapper>
-                </TaskFooter>
-            </DisplayTaskModalContainer>
-        </ModalWrapper>
-    );
-}
+            <TaskFooter>
+                <UsersWrapper>
+                    <UserCircleWrapper left>
+                        <UserCircle
+                            user={task.createdBy.username}
+                        />
+                    </UserCircleWrapper>
+                    created at
+                    <CreatedAt>
+                        12:48 12-08
+                    </CreatedAt>
+                    for
+                    <UserCircleWrapper
+                        right
+                    >
+                        <UserCircle
+                            user={task.createdFor.username}
+                        />
+                    </UserCircleWrapper>
+                </UsersWrapper>
+            </TaskFooter>
+        </DisplayTaskModalContainer>
+    </ModalWrapper>
+);
 
 
 const DisplayTaskModalContainer = styled.div`
@@ -82,8 +81,8 @@ const TaskHeader = styled.div`
     margin-bottom: 1em;
 `;
 
-const TaskCategorySpan = styled.span`
-    background-color: red;
+const TaskCategorySpan = styled.span<{id: any}>`
+    background-color: ${p => p.id === 1 ? 'red' : 'green'};
     border-radius: 5px;
     padding: 0 6px 2px 6px;
     margin-left: 1em;

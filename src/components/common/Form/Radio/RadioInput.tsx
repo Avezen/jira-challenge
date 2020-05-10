@@ -18,7 +18,7 @@ export const RadioInput = ({name, disabled, radio, errors}: { name: any, disable
                         name={name}
                         id={`${name}-${radio.name}-radio`}
                         disabled={disabled}
-                        value={radio.name}
+                        value={radio.id}
                     />
                 )}
             </Field>

@@ -4,7 +4,7 @@ export const newTaskFormInitialValues : ITaskForm = {
     name: '',
     description: '',
     category: '',
-    steps: [''],
-    developers: [],
-    createdBy: 1,
+    taskSteps: [{name: ''}],
+    createdFor: 5,
+    createdBy: 5,
 };

@@ -3,7 +3,7 @@ export interface ITask {
     name: string;
     description: string;
     category: string;
-    steps: string[];
+    taskSteps: any[];
     developers: number[];
     createdBy: number;
 }
@@ -12,7 +12,7 @@ export interface ITaskForm {
     name: string;
     description: string;
     category: string;
-    steps: string[];
-    developers: number[];
+    taskSteps: any[];
+    createdFor: number
     createdBy: number;
 }

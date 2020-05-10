@@ -8,23 +8,23 @@ export interface TaskRequestError {
     message: string;
 }
 
+
 export const taskApi = {
     fetchAll () {
-        return AppAPI.get(`/task`, {
+        return AppAPI.get(`/stage/task/active`, {
             headers: headers.authorization(getSessionToken())
         });
     },
     post (columnId: IColumn['id'], payload: any) {
-        // return AppAPI.post(`/column/${columnId}/task`, payload);
-        return new Promise((resolve, reject) => {
-            let wait = setTimeout(() => {
-                clearTimeout(wait);
-                resolve({ columnId, payload });
-                reject('Wrong')
-            }, 1)
+        console.log(payload);
+
+        return AppAPI.post(`/stage/${columnId}/task`, payload,{
+            headers: headers.authorization(getSessionToken())
         });
     },
-    update (taskId: ITask['id'], payload: any) {
-        return AppAPI.patch(`/task/${taskId}`, payload);
+    updateStage (taskId: ITask['id'], stageId: any) {
+        return AppAPI.patch(`/task/${taskId}/stage/${stageId}`, null,{
+            headers: headers.authorization(getSessionToken())
+        });
     }
 };

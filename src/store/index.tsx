@@ -16,5 +16,6 @@ export const store = createStore(
 store.subscribe(() => {
     if(store.getState().tasks.data.length !== 0 && !store.getState().tasks.error){
         storage.setObject(storageType.COLUMNS, store.getState().tasks.data);
+        storage.setObject(storageType.COLUMNS_REVERT, store.getState().tasks.data);
     }
 });

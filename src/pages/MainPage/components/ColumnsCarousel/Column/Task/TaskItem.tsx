@@ -13,27 +13,6 @@ export interface TaskItemProps {
     isDragging: boolean
 }
 
-
-const developers = {
-    createdBy: {
-        id: 1,
-        name: 'user1',
-        avatar: avatar1
-    },
-    createdFor: [
-        {
-            id: 1,
-            name: 'user1',
-            avatar: avatar1
-        },
-        {
-            id: 2,
-            name: 'user2',
-            avatar: avatar2
-        }
-    ]
-};
-
 export const TaskItem = ({
                              task,
                              elementRef,
@@ -48,7 +27,6 @@ export const TaskItem = ({
                     <DisplayTaskModal
                         closeModal={closeModal}
                         task={task}
-                        developers={developers}
                     />
                 )}
             >
@@ -56,9 +34,11 @@ export const TaskItem = ({
                     <h5>
                         {task.name}
                     </h5>
-                    <ItemCategorySpan>
+                    <ItemCategorySpan
+                        id={task.category.id}
+                    >
                         <small>
-                            {task.category}
+                            {task.category.name}
                         </small>
                     </ItemCategorySpan>
                 </TaskItemHeader>
@@ -71,22 +51,19 @@ export const TaskItem = ({
                             left
                         >
                             <UserCircle
-                                user={developers.createdBy}
+                                user={task.createdBy.username}
                             />
                         </UserCircleWrapper>
                         <RightArrow/>
                         <RightArrow/>
                         <RightArrow/>
-                        {developers.createdFor.map((item: any, key: any) => (
-                            <UserCircleWrapper
-                                key={key}
-                                right
-                            >
-                                <UserCircle
-                                    user={item}
-                                />
-                            </UserCircleWrapper>
-                        ))}
+                        <UserCircleWrapper
+                            right
+                        >
+                            <UserCircle
+                                user={task.createdFor.username}
+                            />
+                        </UserCircleWrapper>
                     </UsersWrapper>
                 </TaskItemBody>
             </TaskItemContainer>
@@ -110,8 +87,8 @@ const TaskItemHeader = styled.div`
     margin-bottom: 1em;
 `;
 
-const ItemCategorySpan = styled.span`
-    background-color: red;
+const ItemCategorySpan = styled.span<{id: any}>`
+    background-color: ${p => p.id === 1 ? 'red' : 'green'};
     border-radius: 5px;
     padding: 0 6px 2px 6px;
     margin-left: 1em;

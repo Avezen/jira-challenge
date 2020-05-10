@@ -21,24 +21,14 @@ const categories = [
         id: 2,
         name: 'FEATURE',
         color: 'green'
-    },
-    {
-        id: 2,
-        name: 'SMALLFIX',
-        color: 'yellow'
     }
 ];
 
 const developers = [
     {
-        id: 1,
+        id: 5,
         name: 'user1',
         avatar: avatar1
-    },
-    {
-        id: 2,
-        name: 'user2',
-        avatar: avatar2
     }
 ];
 
@@ -68,20 +58,21 @@ export const TaskForm = ({values, setFieldValue}: { values: any, setFieldValue: 
 
         <Col lg={12}>
             <ListGroup
-                name={'steps'}
+                name={'taskSteps'}
                 placeholder={'Task Steps'}
                 listItemPlaceholder={'Task step description'}
-                steps={values.steps}
+                steps={values.taskSteps}
                 setFieldValue={setFieldValue}
             />
         </Col>
 
         <Col lg={12}>
-            <CheckboxGroup
-                name={'developers'}
+            <RadioGroup
+                name={'createdFor'}
                 placeholder={'Task Developers'}
-                checkboxes={developers}
+                radios={developers}
             />
+            {/*ToDo: set styling for each form input*/}
         </Col>
 
         <Col lg={12}>

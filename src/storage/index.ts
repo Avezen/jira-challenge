@@ -1,6 +1,7 @@
 
 export const storageType = {
   COLUMNS: 'COLUMNS',
+  COLUMNS_REVERT: 'COLUMNS_REVERT',
 };
 
 export const storage = {

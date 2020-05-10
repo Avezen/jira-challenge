@@ -6,6 +6,8 @@ import {isObjectEmpty} from "../../../../utils";
 import {connect} from "react-redux";
 import {getTasks} from "../../../../store/actions/taskActions";
 import {taskStorage} from "../../../../storage/TaskStorage";
+import {taskApi} from "../../../../api/task";
+import {store} from "../../../../store";
 
 let columns = [
     {
@@ -255,18 +257,34 @@ class ColumnsCarouselContainer extends Component<ColumnsCarouselProps, ColumnsCa
         const {items} = this.state;
 
         taskStorage.changeTaskColumn(items, destinationColumnId, sourceColumnIndex, sourceItemIndex);
-
         const updatedColumns = storage.getObject(storageType.COLUMNS);
 
         this.setState(
             {items: updatedColumns}
         );
+
+        const sourceItem = items[sourceColumnIndex].tasks[sourceItemIndex];
+
+        taskApi.updateStage(sourceItem.id, destinationColumnId).then(
+            () => {
+                storage.setObject(storageType.COLUMNS_REVERT, updatedColumns);
+            }
+        ).catch(
+            () => {
+                const storageRevert = storage.getObject(storageType.COLUMNS_REVERT);
+                storage.setObject(storageType.COLUMNS, storage.getObject(storageType.COLUMNS_REVERT));
+
+                this.setState(
+                    {items: storageRevert}
+                );
+            }
+        );
     };
 
-    moveItem = (dragColumnIndex: number, dragItemIndex: number, hoverItemIndex: number) => {
+    moveItem = (sourceColumnIndex: number, sourceItemIndex: number, hoverItemIndex: number) => {
         const {items} = this.state;
 
-        taskStorage.moveTask(items, dragColumnIndex, dragItemIndex, hoverItemIndex);
+        taskStorage.moveTask(items, sourceColumnIndex, sourceItemIndex, hoverItemIndex);
 
         const updatedColumns = storage.getObject(storageType.COLUMNS);
 

@@ -6,25 +6,28 @@ import {StyledErrorMessage} from "../styled";
 export const ListItemInput = ({name, index, removeItem, placeholder}: {name: any, index: any, removeItem: any, placeholder?: any}) => (
     <ListItemInputContainer>
         <Field
-            name={`${name}[${index}]`}
+            name={`${name}[${index}].name`}
         >
-            {({field}: { field: any }) => (
-                <StyledListItemInput>
-                    <StyledInput
-                        {...field}
-                        type={'text'}
-                        placeholder={placeholder}
-                    />
-                    <RemoveButton
-                        type={'button'}
-                        onClick={() => removeItem(index)}
-                    >
-                    </RemoveButton>
-                </StyledListItemInput>
-            )}
+            {({field}: { field: any }) => {
+                    console.log(field);
+                    return(
+                        <StyledListItemInput>
+                                <StyledInput
+                                    {...field}
+                                    type={'text'}
+                                    placeholder={placeholder}
+                                />
+                                <RemoveButton
+                                    type={'button'}
+                                    onClick={() => removeItem(index)}
+                                >
+                                </RemoveButton>
+                        </StyledListItemInput>
+                    )
+            }}
         </Field>
         <StyledErrorMessage
-            name={`${name}[${index}]`}
+            name={`${name}[${index}].name`}
             component={'div'}
         />
     </ListItemInputContainer>
