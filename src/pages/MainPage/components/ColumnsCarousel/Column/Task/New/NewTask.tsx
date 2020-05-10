@@ -11,9 +11,13 @@ import {ITaskForm} from "../../../../../../../types/ITask";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {taskApi} from "../../../../../../../api/task";
 import {taskStorage} from "../../../../../../../storage/TaskStorage";
+import {getTasks} from "../../../../../../../store/actions/taskActions";
+import {connect} from "react-redux";
 
 interface NewTaskProps {
+    getTasks: any;
     columnId: number;
+    closeModal: any;
 }
 
 class NewTaskBase extends Component<RouteComponentProps & NewTaskProps> {
@@ -59,11 +63,14 @@ class NewTaskBase extends Component<RouteComponentProps & NewTaskProps> {
     };
 
     onSaveSuccess: SubmitFn<ITaskForm> = (values, actions) => ({columnId, payload}: any) => {
-        const {history} = this.props;
+        const {closeModal, getTasks} = this.props;
         this.setState({sendingErrorMessage: '', isFetching: false}, () => {
             actions.setSubmitting(false);
-            console.log(payload);
-            // taskStorage.addTask(columnId, payload)
+
+            getTasks();
+            closeModal();
+
+            // taskStorage.addTask(columnId, payload);
         });
     };
 
@@ -79,4 +86,16 @@ class NewTaskBase extends Component<RouteComponentProps & NewTaskProps> {
     };
 }
 
-export const NewTask = withRouter(NewTaskBase);
+const NewTask = withRouter(NewTaskBase);
+
+
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        getTasks: () => dispatch(getTasks())
+    };
+};
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(NewTask);

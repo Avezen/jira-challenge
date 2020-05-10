@@ -1,6 +1,6 @@
 import React from 'react';
 import {ModalWrapper} from "../../../../../../../wrappers/ModalWrapper";
-import {NewTask} from "./NewTask";
+import NewTask from "./NewTask";
 
 
 export const NewTaskModal = ({closeModal, columnId}: { closeModal: any, columnId: any }) => (
@@ -10,6 +10,7 @@ export const NewTaskModal = ({closeModal, columnId}: { closeModal: any, columnId
     >
         <NewTask
             columnId={columnId}
+            closeModal={closeModal}
         />
     </ModalWrapper>
 );
